@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dockerfile, image và container | MyMiniCloud</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Trang chủ</a> |
+        <a href="/blog/">Danh sách bài viết</a>
+    </nav>
+    <article>
+        <h1>Dockerfile, image và container khác nhau thế nào?</h1>
+        <p>Tác giả: xbanghjhj</p>
+        <figure>
+            <img src="/images/docker-flow.svg"
+                 alt="Sơ đồ từ Dockerfile đến image và container">
+            <figcaption>Quy trình đóng gói và chạy Web Server.</figcaption>
+        </figure>
+
+        <h2>Ba thành phần cần phân biệt</h2>
+        <ul>
+            <li><strong>Dockerfile:</strong> mô tả các bước xây dựng image.</li>
+            <li><strong>Image:</strong> khuôn mẫu chỉ đọc để tạo container.</li>
+            <li><strong>Container:</strong> một instance được tạo từ image.</li>
+        </ul>
+
+        <h2>Áp dụng trong MyMiniCloud</h2>
+        <p>Dockerfile sao chép cấu hình Nginx và các file HTML vào image
+        <code>myminicloud-web:dev</code>. Service <code>web-frontend-server</code>
+        dùng image đó để phục vụ website.</p>
+        <p>Khi sửa HTML, ta build lại image và cập nhật container.</p>
+        <pre><code>docker compose up -d --build web-frontend-server</code></pre>
+
+        <p>Nguồn: <a href="https://docs.docker.com/get-started/docker-overview/">Docker — What is Docker?</a></p>
+    </article>
+    <footer><a href="/blog/">Quay lại danh sách bài viết</a></footer>
+</body>
+</html>

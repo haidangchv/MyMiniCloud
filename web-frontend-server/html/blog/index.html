@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MyMiniCloud - Blog</title>
-    <style>
-        body {
-            max-width: 850px;
-            margin: 50px auto;
-            padding: 0 20px;
-            font-family: Arial, sans-serif;
-            line-height: 1.7;
-            color: #203040;
-        }
-        a { color: #1463ad; }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <nav><a href="/">Quay lại trang chủ</a></nav>
     <h1>MyMiniCloud - Blog</h1>
-    <p>Ghi chép về Docker, Nginx và mạng máy tính.</p>
-    <a href="/">Quay lại trang chủ</a>
+    <p>Ghi chép công nghệ của xbanghjhj.</p>
+
+    <section class="card">
+        <h2><a href="/blog/blog1.html">
+            Dockerfile, image và container khác nhau thế nào?
+        </a></h2>
+        <p>Tìm hiểu cách đóng gói và chạy Web bằng Docker.</p>
+    </section>
+
+    <section class="card">
+        <h2><a href="/blog/blog2.html">
+            Nginx phục vụ Web và làm reverse proxy
+        </a></h2>
+        <p>Phân biệt vai trò Web Server và API Gateway.</p>
+    </section>
+
+    <section class="card">
+        <h2><a href="/blog/blog3.html">
+            Giao tiếp giữa container trong cloud-net
+        </a></h2>
+        <p>Tên service, mạng Docker và cổng kết nối.</p>
+    </section>
 </body>
 </html>

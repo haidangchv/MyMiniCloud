@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Giao tiếp giữa container trong cloud-net | MyMiniCloud</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Trang chủ</a> |
+        <a href="/blog/">Danh sách bài viết</a>
+    </nav>
+    <article>
+        <h1>Giao tiếp giữa container trong cloud-net</h1>
+        <p>Tác giả: xbanghjhj</p>
+        <figure>
+            <img src="/images/network-flow.svg" alt="Giao tiếp giữa container trong cloud-net">
+            <figcaption>Hình minh họa nguyên lý: Giao tiếp giữa container trong cloud-net.</figcaption>
+        </figure>
+        <h2>Dùng tên service để kết nối</h2>
+<p>Các service cùng tham gia một mạng Compose có thể được
+phân giải bằng tên service. Ví dụ, Gateway cùng mạng có thể
+gọi Web qua địa chỉ <code>http://web-frontend-server:80</code>.</p>
+
+<h2>Cổng host và cổng container</h2>
+<ul>
+    <li>Trình duyệt trên Windows: truy cập localhost:8080.</li>
+    <li>Container cùng mạng: truy cập web-frontend-server:80.</li>
+</ul>
+<p>Trong một container, localhost thông thường trỏ về chính
+container đó, không trỏ đến một container khác.</p>
+
+<h2>Hạn chế phụ thuộc IP động</h2>
+<p>Địa chỉ IP có thể thay đổi khi container được tạo lại.
+Tên service giúp cấu hình giao tiếp ổn định hơn.
+Docker DNS phục vụ phân giải tên service; Bind9 là dịch vụ
+DNS riêng được xây dựng trong bài lab MyMiniCloud.</p>
+
+<p>Nguồn:
+<a href="https://docs.docker.com/compose/how-tos/networking/">
+Docker — Networking in Compose</a></p>
+    </article>
+    <footer>
+        <a href="/blog/">Quay lại danh sách bài viết</a> |
+        <a href="/">Quay lại trang chủ</a>
+    </footer>
+</body>
+</html>
