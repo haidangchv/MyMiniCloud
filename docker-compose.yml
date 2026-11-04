@@ -1,0 +1,30 @@
+name: myminicloud
+
+services:
+  web-frontend-server:
+    build:
+      context: ./web-frontend-server
+    image: myminicloud-web:dev
+    container_name: web-frontend-server
+    restart: unless-stopped
+
+    ports:
+      - "8080:80"
+
+    networks:
+      - cloud-net
+
+    mem_limit: 128m
+    cpus: 0.5
+
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/ || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+networks:
+  cloud-net:
+    name: cloud-net
+    driver: bridge
