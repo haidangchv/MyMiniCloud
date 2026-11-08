@@ -1,0 +1,37 @@
+{
+  "realm": "myminicloud",
+  "enabled": true,
+  "displayName": "MyMiniCloud Identity Realm",
+  "clients": [
+    {
+      "clientId": "myminicloud-app",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:8080/*",
+        "http://localhost/*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "sv001",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Bằng",
+      "lastName": "Nguyễn Xuân",
+      "email": "bang.nx@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "minicloud123",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}
