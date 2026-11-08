@@ -4,24 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MyMiniCloud - Home</title>
-    <style>
-        body {
-            max-width: 850px;
-            margin: 50px auto;
-            padding: 0 20px;
-            font-family: Arial, sans-serif;
-            line-height: 1.7;
-            color: #203040;
-        }
-        a { color: #1463ad; }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>MyMiniCloud - Home</h1>
-    <p>Hệ thống mô phỏng hạ tầng Cloud bằng Docker.</p>
-    <p>Thành viên phụ trách Web và API Gateway: TV1 - Nguyễn Xuân Bằng.</p>
+    <header>
+        <h1>MyMiniCloud - Home</h1>
+        <p>Hệ thống mô phỏng hạ tầng Cloud bằng Docker Compose.</p>
+        <p>Thành viên phụ trách Web, API Gateway &amp; Load Balancing: <strong>TV1 - Nguyễn Xuân Bằng</strong>.</p>
+    </header>
+
     <nav>
-        <a href="/blog/">Đọc blog công nghệ</a>
+        <a href="/">Trang chủ</a> |
+        <a href="/blog/">Tất cả bài viết Blog</a> |
+        <a href="/node">Kiểm tra Node (Load Balancing)</a> |
+        <a href="/api/student">API Student</a> |
+        <a href="/api/students-db">API Students DB</a>
     </nav>
+
+    <section class="card">
+        <h2>Danh sách 3 bài viết Blog công nghệ</h2>
+        <ul>
+            <li>
+                <a href="/blog/blog1.html"><strong>Bài 1: Dockerfile, image và container khác nhau thế nào?</strong></a>
+                <p>Tìm hiểu cách đóng gói cấu hình Nginx, HTML và chạy Web Server bằng Docker.</p>
+            </li>
+            <li>
+                <a href="/blog/blog2.html"><strong>Bài 2: Nginx phục vụ Web và làm reverse proxy</strong></a>
+                <p>Phân biệt vai trò giữa Web Server phục vụ nội dung tĩnh và API Gateway điều phối request.</p>
+            </li>
+            <li>
+                <a href="/blog/blog3.html"><strong>Bài 3: Giao tiếp giữa container trong cloud-net</strong></a>
+                <p>Cơ chế phân giải tên service (Service Discovery), mạng nội bộ Docker và cổng kết nối.</p>
+            </li>
+        </ul>
+        <p><a href="/blog/">Xem trang danh mục Blog đầy đủ &rarr;</a></p>
+    </section>
+
+    <section class="card">
+        <h2>Kiến trúc cụm Web &amp; API Gateway (TV1)</h2>
+        <ul>
+            <li><strong>API Gateway:</strong> <code>api-gateway-proxy-server</code> (Nginx Reverse Proxy &amp; Load Balancer)</li>
+            <li><strong>Web Server Cluster (Round Robin):</strong> <code>web-frontend-server</code> &amp; <code>web-frontend-server-2</code></li>
+            <li><strong>Backend Routing:</strong> Chuyển tiếp <code>/api/*</code>, <code>/student</code>, <code>/students-db</code> tới <code>application-backend-server:5000</code></li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>MyMiniCloud Project &mdash; Docker Compose &amp; Cloud Infrastructure</p>
+    </footer>
 </body>
 </html>

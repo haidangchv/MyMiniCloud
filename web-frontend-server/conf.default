@@ -7,8 +7,17 @@ server {
     charset utf-8;
     absolute_redirect off;
 
+    # Header giúp nhận diện container Web nào đang xử lý request (kiểm chứng Load Balancing Round Robin)
+    add_header X-Served-By $hostname always;
+
     location / {
         try_files $uri $uri/ =404;
+    }
+
+    location = /node {
+        default_type text/plain;
+        add_header X-Served-By $hostname always;
+        return 200 "Web Server Node: $hostname\n";
     }
 
     location = /blog {
