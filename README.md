@@ -14,18 +14,18 @@ Hệ thống mô phỏng hạ tầng Cloud thu nhỏ sử dụng Docker Compose.
   - Sử dụng Docker DNS (`127.0.0.11`) và xử lý lỗi `@backend_unavailable` giúp Gateway hoạt động độc lập ngay cả khi service của TV2 chưa khởi chạy.
 - **Tích hợp Docker Compose & Mạng nội bộ `cloud-net`**.
 
-## Bảng cổng dịch vụ (TV1, TV2 & TV3)
+## Bảng cổng & IP tĩnh dịch vụ (TV1, TV2 & TV3 trên mạng `cloud-net` `10.10.10.0/24`)
 
-| Dịch vụ | Container Name | Alias trong `cloud-net` | Cổng Host -> Container | Mô tả |
-|---|---|---|---|---|
-| API Gateway & Load Balancer | `api-gateway-proxy-server` | `proxy` | `80:80` | Cổng vào chính (`http://localhost/`) |
-| Web Server Node 1 | `web-frontend-server` | `web`, `web-frontend-server1` | `8080:80` | Instance Web 1 (`http://localhost:8080/`) |
-| Web Server Node 2 | `web-frontend-server-2` | `web2`, `web-frontend-server2` | `8082:80` | Instance Web 2 (Round Robin) |
-| Application Backend Server | `application-backend-server` | `app-server` | `8085:5000`, `5000:5000` | Flask RESTful API Backend |
-| Relational Database Server | `relational-database-server` | `db` | `3306:3306` | MariaDB RDBMS (`minicloud` & `studentdb`) |
-| Authentication Identity Server | `authentication-identity-server` | `keycloak` | `8081:8080` | Keycloak OIDC Server (`admin/admin`) |
-| Object Storage Server | `object-storage-server` | `minio` | `9000:9000`, `9001:9001` | MinIO S3 API (`9000`) & Console (`9001`) |
-| Internal DNS Server | `internal-dns-server` | `dns-server` | `1053:53/udp`, `1053:53/tcp` | Bind9 DNS Server (Zone `cloud.local`) |
+| Dịch vụ | Container Name | IP tĩnh (`cloud-net`) | Alias / DNS (`*.cloud.local`) | Cổng Host -> Container | Mô tả |
+|---|---|---|---|---|---|
+| API Gateway & Load Balancer | `api-gateway-proxy-server` | `10.10.10.60` | `proxy` | `80:80` | Cổng vào chính (`http://localhost/`) |
+| Web Server Node 1 | `web-frontend-server` | `10.10.10.10` | `web`, `web-frontend-server1` | `8080:80` | Instance Web 1 (`http://localhost:8080/`) |
+| Web Server Node 2 | `web-frontend-server-2` | `10.10.10.11` | `web2`, `web-frontend-server2` | `8082:80` | Instance Web 2 (Round Robin) |
+| Application Backend Server | `application-backend-server` | `10.10.10.20` | `app-server`, `app-backend` | `8085:5000`, `5000:5000` | Flask RESTful API Backend |
+| Relational Database Server | `relational-database-server` | `10.10.10.50` | `db` | `3306:3306` | MariaDB RDBMS (`minicloud` & `studentdb`) |
+| Authentication Identity Server | `authentication-identity-server` | `10.10.10.40` | `keycloak` | `8081:8080` | Keycloak OIDC Server (`admin/admin`, RAM `1g`) |
+| Object Storage Server | `object-storage-server` | `10.10.10.30` | `minio` | `9000:9000`, `9001:9001` | MinIO S3 API (`9000`) & Console (`9001`) |
+| Internal DNS Server | `internal-dns-server` | `10.10.10.53` | `dns-server`, `ns` | `1053:53/udp`, `1053:53/tcp` | Bind9 DNS Server (Zone `cloud.local`) |
 
 ## Phạm vi công việc Thành viên 2 (TV2 - Bùi Huy Báu - MSSV: 52300181)
 

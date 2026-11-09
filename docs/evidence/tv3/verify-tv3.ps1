@@ -1,7 +1,8 @@
 # Script tự động khởi tạo & kiểm thử toàn bộ phần việc của TV3 - Nguyễn Hải Đăng
 # (Keycloak OIDC Realm/Token, MinIO S3 Buckets/Upload/Public URL, Bind9 DNS Zone cloud.local)
 
-$ProjectRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+# Đi ngược 3 cấp từ docs/evidence/tv3 lên thư mục gốc MyMiniCloud
+$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).Path
 
 Write-Host "==================================================================" -ForegroundColor Cyan
 Write-Host " 1. KIEM TRA KEYCLOAK OIDC (MUC 4 CO BAN & MO RONG - REALM_SV001)" -ForegroundColor Cyan

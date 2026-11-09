@@ -11,38 +11,40 @@ app = Flask(__name__)
 # ==========================================
 # CẤU HÌNH KEYCLOAK OIDC
 # ==========================================
-ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/master")
-AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
+OIDC_REALM = os.getenv("OIDC_REALM", "realm_sv001")
+ISSUER = os.getenv("OIDC_ISSUER", f"http://localhost:8081/realms/{OIDC_REALM}")
+AUDIENCE = os.getenv("OIDC_AUDIENCE", "flask-app")
 KEYCLOAK_INTERNAL_URL = os.getenv("KEYCLOAK_INTERNAL_URL", "http://authentication-identity-server:8080")
-_JWKS_CACHE = {}
+JWKS_URL = os.getenv(
+    "OIDC_JWKS_URL",
+    f"{KEYCLOAK_INTERNAL_URL}/realms/{OIDC_REALM}/protocol/openid-connect/certs"
+)
 
-def get_jwks(token=None):
-    """Lấy JWKS từ Keycloak, tự động nhận diện realm trong token (master hoặc realm_sv...)"""
-    realm = "master"
-    if token:
-        try:
-            unverified = jwt.get_unverified_claims(token)
-            iss = unverified.get("iss", "")
-            if "/realms/" in iss:
-                realm = iss.split("/realms/", 1)[1].strip("/")
-        except Exception:
-            pass
+# Danh sách các Issuer hợp lệ của cùng Realm tin cậy (hỗ trợ cả gọi qua host 8081, qua Gateway /auth, hoặc nội bộ)
+ALLOWED_ISSUERS = {
+    ISSUER.rstrip("/"),
+    f"http://localhost:8081/realms/{OIDC_REALM}",
+    f"http://authentication-identity-server:8080/realms/{OIDC_REALM}",
+    f"http://localhost/auth/realms/{OIDC_REALM}",
+    f"http://localhost/realms/{OIDC_REALM}",
+}
 
+_JWKS = None
+_TS = 0
+
+def get_jwks():
+    """Lấy JWKS từ đúng Realm tin cậy đã cấu hình (OIDC_JWKS_URL)"""
+    global _JWKS, _TS
     now = time.time()
-    cached = _JWKS_CACHE.get(realm)
-    if cached and (now - cached["ts"] <= 600):
-        return cached["jwks"]
-
-    jwks_url = f"{KEYCLOAK_INTERNAL_URL}/realms/{realm}/protocol/openid-connect/certs"
-    try:
-        res = requests.get(jwks_url, timeout=5)
-        if res.status_code == 200:
-            jwks = res.json()
-            _JWKS_CACHE[realm] = {"jwks": jwks, "ts": now}
-            return jwks
-    except Exception as e:
-        print(f"[WARN] Cannot fetch JWKS from {jwks_url}: {e}")
-    return cached["jwks"] if cached else None
+    if not _JWKS or (now - _TS > 600):
+        try:
+            res = requests.get(JWKS_URL, timeout=5)
+            if res.status_code == 200:
+                _JWKS = res.json()
+                _TS = now
+        except Exception as e:
+            print(f"[WARN] Cannot fetch JWKS from {JWKS_URL}: {e}")
+    return _JWKS
 
 # ==========================================
 # CẤU HÌNH KẾT NỐI MARIADB
@@ -102,22 +104,30 @@ def secure():
         return jsonify(error="Missing Bearer token"), 401
     
     token = auth.split(" ", 1)[1]
-    jwks = get_jwks(token)
+    jwks = get_jwks()
     if not jwks:
         return jsonify(error="Authentication server JWKS unavailable"), 503
 
     try:
+        unverified_claims = jwt.get_unverified_claims(token)
+        token_issuer = unverified_claims.get("iss", "").rstrip("/")
+        if token_issuer not in ALLOWED_ISSUERS:
+            return jsonify(
+                error=f"Invalid issuer '{token_issuer}'. Expected one of: {sorted(ALLOWED_ISSUERS)}"
+            ), 401
+
         payload = jwt.decode(
             token,
             jwks,
             algorithms=["RS256"],
-            options={"verify_aud": False, "verify_iss": False},
+            audience=AUDIENCE,
+            issuer=token_issuer,
         )
         return jsonify(
             message="Secure resource OK",
             preferred_username=payload.get("preferred_username", "unknown"),
-            client_id=payload.get("azp", payload.get("client_id", AUDIENCE)),
-            issuer=payload.get("iss", ISSUER),
+            audience=payload.get("aud"),
+            issuer=payload.get("iss"),
             roles=payload.get("realm_access", {}).get("roles", [])
         )
     except Exception as e:

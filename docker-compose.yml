@@ -20,6 +20,7 @@ services:
         condition: service_healthy
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.60
         aliases:
           - proxy
     mem_limit: 128m
@@ -42,6 +43,7 @@ services:
       - "8080:80"
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.10
         aliases:
           - web
           - web-frontend-server1
@@ -65,6 +67,7 @@ services:
       - "8082:80"
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.11
         aliases:
           - web2
           - web-frontend-server2
@@ -92,9 +95,11 @@ services:
       - "8085:5000"
     environment:
       PORT: 5000
-      OIDC_ISSUER: "http://authentication-identity-server:8080/realms/realm_sv001"
+      OIDC_REALM: "realm_sv001"
+      OIDC_ISSUER: "http://localhost:8081/realms/realm_sv001"
       OIDC_AUDIENCE: "flask-app"
       KEYCLOAK_INTERNAL_URL: "http://authentication-identity-server:8080"
+      OIDC_JWKS_URL: "http://authentication-identity-server:8080/realms/realm_sv001/protocol/openid-connect/certs"
       DB_HOST: "relational-database-server"
       DB_USER: "root"
       DB_PASS: "root"
@@ -105,8 +110,10 @@ services:
         condition: service_healthy
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.20
         aliases:
           - app-server
+          - app-backend
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -131,6 +138,7 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.50
         aliases:
           - db
     mem_limit: 256m
@@ -156,16 +164,17 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: "localhost"
       KC_HOSTNAME_STRICT: "false"
       KC_HTTP_ENABLED: "true"
+      KC_PROXY_HEADERS: "xforwarded"
     volumes:
       - ./authentication-identity-server/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.40
         aliases:
           - keycloak
-    mem_limit: 512m
+    mem_limit: 1g
     cpus: 1.0
 
   object-storage-server:
@@ -184,6 +193,7 @@ services:
       - ./object-storage-server/data:/data
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.30
         aliases:
           - minio
     mem_limit: 256m
@@ -203,6 +213,7 @@ services:
       - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
     networks:
       cloud-net:
+        ipv4_address: 10.10.10.53
         aliases:
           - dns-server
     mem_limit: 128m
@@ -218,6 +229,7 @@ services:
   #     - "9100:9100"
   #   networks:
   #     cloud-net:
+  #       ipv4_address: 10.10.10.70
   #       aliases:
   #         - node-exporter
   #
@@ -227,6 +239,7 @@ services:
   #     - "9090:9090"
   #   networks:
   #     cloud-net:
+  #       ipv4_address: 10.10.10.71
   #       aliases:
   #         - prometheus
   #
@@ -236,6 +249,7 @@ services:
   #     - "3000:3000"
   #   networks:
   #     cloud-net:
+  #       ipv4_address: 10.10.10.72
   #       aliases:
   #         - grafana
 
@@ -243,6 +257,9 @@ networks:
   cloud-net:
     name: cloud-net
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.10.0/24
 
 volumes:
   mariadb_data:
