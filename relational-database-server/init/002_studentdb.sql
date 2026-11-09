@@ -17,13 +17,13 @@ CREATE TABLE IF NOT EXISTS students (
 );
 
 -- 2. Chèn dữ liệu mẫu (ít nhất 5 sinh viên thực tế)
-INSERT INTO students (student_id, fullname, dob, major) VALUES
+INSERT IGNORE INTO students (student_id, fullname, dob, major) VALUES
 ('52300181', 'Bui Huy Bau', '2003-01-01', 'Cloud Computing'),
 ('SV002', 'Nguyen Van A', '2003-05-15', 'Computer Science'),
 ('SV003', 'Tran Thi B', '2003-08-20', 'Information Technology'),
 ('SV004', 'Le Van C', '2002-12-10', 'Cyber Security'),
 ('SV005', 'Pham Minh D', '2003-03-25', 'Software Engineering');
 
--- 3. Cấp quyền truy cập từ các container khác trong mạng cloud-net
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+-- 3. Cấp quyền truy cập từ các container khác trong mạng cloud-net (chuẩn cú pháp MariaDB 11)
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

@@ -1,0 +1,21 @@
+$TTL 1H
+@   IN SOA  ns.cloud.local. admin.cloud.local. (
+            2026110901 ; Serial
+            1H         ; Refresh
+            15M        ; Retry
+            1W         ; Expire
+            1H )       ; Negative Cache TTL
+;
+@                   IN NS   ns.cloud.local.
+ns                  IN A    127.0.0.1
+
+; Bản ghi cơ bản (Mục 6 Cơ bản)
+web-frontend-server IN A    10.10.10.10
+
+; Bản ghi mở rộng (Mục 6 Mở rộng - TV3 Nguyễn Hải Đăng)
+app-backend         IN A    10.10.10.20
+minio               IN A    10.10.10.30
+keycloak            IN A    10.10.10.40
+db                  IN A    10.10.10.50
+proxy               IN A    10.10.10.60
+

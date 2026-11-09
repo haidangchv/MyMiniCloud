@@ -1,16 +1,35 @@
 {
-  "realm": "myminicloud",
+  "realm": "realm_sv001",
   "enabled": true,
-  "displayName": "MyMiniCloud Identity Realm",
+  "displayName": "MyMiniCloud OIDC Realm - TV3 Nguyen Hai Dang",
+  "accessTokenLifespan": 3600,
   "clients": [
     {
-      "clientId": "myminicloud-app",
+      "clientId": "flask-app",
+      "name": "Flask Application Backend Client",
       "enabled": true,
       "publicClient": true,
+      "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
       "redirectUris": [
+        "http://localhost/*",
         "http://localhost:8080/*",
-        "http://localhost/*"
+        "http://localhost:8085/*",
+        "http://localhost:5000/*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    },
+    {
+      "clientId": "myapp",
+      "name": "Default App Client",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "*"
       ],
       "webOrigins": [
         "*"
@@ -19,20 +38,40 @@
   ],
   "users": [
     {
-      "username": "sv001",
+      "username": "sv01",
       "enabled": true,
       "emailVerified": true,
-      "firstName": "Bằng",
-      "lastName": "Nguyễn Xuân",
-      "email": "bang.nx@myminicloud.local",
+      "firstName": "Hai Dang",
+      "lastName": "Nguyen",
+      "email": "sv01@cloud.local",
       "credentials": [
         {
           "type": "password",
-          "value": "minicloud123",
+          "value": "sv01",
           "temporary": false
         }
+      ],
+      "realmRoles": [
+        "default-roles-realm_sv001"
+      ]
+    },
+    {
+      "username": "sv02",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Xuan Bang",
+      "lastName": "Nguyen",
+      "email": "sv02@cloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "sv02",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "default-roles-realm_sv001"
       ]
     }
   ]
 }
-

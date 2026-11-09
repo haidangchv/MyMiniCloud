@@ -1,10 +1,10 @@
-# Script tự động kiểm thử phần việc của TV1 (Web Server, Blog, API Gateway, Round Robin Load Balancing)
-$BaseUrl = "http://localhost:8080"
+# Script tự động kiểm thử phần việc của TV1 & TV2 (Web Server, Blog, API Gateway, Round Robin Load Balancing, Flask API, MariaDB)
+$BaseUrl = "http://localhost"
 
 Write-Host "=== 1. KIEM TRA TRANG THAI CONTAINER ===" -ForegroundColor Cyan
 docker compose ps
 
-Write-Host "`n=== 2. KIEM TRA CAC DUONG DAN WEB & BLOG QUA API GATEWAY ===" -ForegroundColor Cyan
+Write-Host "`n=== 2. KIEM TRA CAC DUONG DAN WEB, BLOG & API QUA API GATEWAY (PORT 80) ===" -ForegroundColor Cyan
 $Paths = @(
     "/",
     "/blog/",
@@ -16,7 +16,11 @@ $Paths = @(
     "/images/network-flow.svg",
     "/styles.css",
     "/gateway-health",
-    "/node"
+    "/node",
+    "/api/hello",
+    "/api/student",
+    "/student/",
+    "/api/students-db"
 )
 
 $Results = foreach ($p in $Paths) {

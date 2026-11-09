@@ -13,22 +13,36 @@ app = Flask(__name__)
 # ==========================================
 ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/master")
 AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
-JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
-_JWKS = None
-_TS = 0
+KEYCLOAK_INTERNAL_URL = os.getenv("KEYCLOAK_INTERNAL_URL", "http://authentication-identity-server:8080")
+_JWKS_CACHE = {}
 
-def get_jwks():
-    global _JWKS, _TS
-    now = time.time()
-    if not _JWKS or (now - _TS > 600):
+def get_jwks(token=None):
+    """Lấy JWKS từ Keycloak, tự động nhận diện realm trong token (master hoặc realm_sv...)"""
+    realm = "master"
+    if token:
         try:
-            res = requests.get(JWKS_URL, timeout=5)
-            if res.status_code == 200:
-                _JWKS = res.json()
-                _TS = now
-        except Exception as e:
-            print(f"[WARN] Cannot fetch JWKS from {JWKS_URL}: {e}")
-    return _JWKS
+            unverified = jwt.get_unverified_claims(token)
+            iss = unverified.get("iss", "")
+            if "/realms/" in iss:
+                realm = iss.split("/realms/", 1)[1].strip("/")
+        except Exception:
+            pass
+
+    now = time.time()
+    cached = _JWKS_CACHE.get(realm)
+    if cached and (now - cached["ts"] <= 600):
+        return cached["jwks"]
+
+    jwks_url = f"{KEYCLOAK_INTERNAL_URL}/realms/{realm}/protocol/openid-connect/certs"
+    try:
+        res = requests.get(jwks_url, timeout=5)
+        if res.status_code == 200:
+            jwks = res.json()
+            _JWKS_CACHE[realm] = {"jwks": jwks, "ts": now}
+            return jwks
+    except Exception as e:
+        print(f"[WARN] Cannot fetch JWKS from {jwks_url}: {e}")
+    return cached["jwks"] if cached else None
 
 # ==========================================
 # CẤU HÌNH KẾT NỐI MARIADB
@@ -75,26 +89,35 @@ def index():
 
 # 1. API Cơ bản
 @app.get("/hello")
+@app.get("/hello/")
 def hello():
     return jsonify(message="Hello from App Server!")
 
 # 2. API Cơ bản bảo mật bằng Keycloak Token (OIDC)
 @app.get("/secure")
+@app.get("/secure/")
 def secure():
     auth = request.headers.get("Authorization", "")
     if not auth.startswith("Bearer "):
         return jsonify(error="Missing Bearer token"), 401
     
     token = auth.split(" ", 1)[1]
-    jwks = get_jwks()
+    jwks = get_jwks(token)
     if not jwks:
         return jsonify(error="Authentication server JWKS unavailable"), 503
 
     try:
-        payload = jwt.decode(token, jwks, algorithms=["RS256"], audience=AUDIENCE, issuer=ISSUER)
+        payload = jwt.decode(
+            token,
+            jwks,
+            algorithms=["RS256"],
+            options={"verify_aud": False, "verify_iss": False},
+        )
         return jsonify(
             message="Secure resource OK",
             preferred_username=payload.get("preferred_username", "unknown"),
+            client_id=payload.get("azp", payload.get("client_id", AUDIENCE)),
+            issuer=payload.get("iss", ISSUER),
             roles=payload.get("realm_access", {}).get("roles", [])
         )
     except Exception as e:
@@ -102,6 +125,7 @@ def secure():
 
 # 3. Yêu cầu mở rộng Mục 2: API đọc danh sách sinh viên từ file students.json
 @app.get("/student")
+@app.get("/student/")
 def student():
     try:
         json_path = os.path.join(os.path.dirname(__file__), "students.json")
@@ -118,6 +142,7 @@ def student():
 
 # 4. Yêu cầu mở rộng Mục 3: API đọc danh sách sinh viên từ CSDL MariaDB (studentdb)
 @app.get("/students-db")
+@app.get("/students-db/")
 def students_db_get():
     try:
         conn = get_db_connection()

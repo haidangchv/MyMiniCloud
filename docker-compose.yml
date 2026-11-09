@@ -2,7 +2,7 @@ name: myminicloud
 
 services:
   # =========================================================================
-  # THÀNH VIÊN 1 (TV1): API Gateway, Load Balancer & Web Server Cluster
+  # THÀNH VIÊN 1 (TV1 - Nguyễn Xuân Bằng): API Gateway, Load Balancer & Web
   # =========================================================================
   api-gateway-proxy-server:
     build:
@@ -13,14 +13,15 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
-      - "8080:80"
     depends_on:
       web-frontend-server:
         condition: service_healthy
       web-frontend-server-2:
         condition: service_healthy
     networks:
-      - cloud-net
+      cloud-net:
+        aliases:
+          - proxy
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -38,9 +39,12 @@ services:
     hostname: web-frontend-server-1
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8080:80"
     networks:
-      - cloud-net
+      cloud-net:
+        aliases:
+          - web
+          - web-frontend-server1
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -60,7 +64,10 @@ services:
     ports:
       - "8082:80"
     networks:
-      - cloud-net
+      cloud-net:
+        aliases:
+          - web2
+          - web-frontend-server2
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -71,7 +78,7 @@ services:
       start_period: 10s
 
   # =========================================================================
-  # THÀNH VIÊN 2 (TV2): Flask Application Backend & MariaDB
+  # THÀNH VIÊN 2 (TV2 - Bùi Huy Báu): Flask Application Backend & MariaDB
   # =========================================================================
   application-backend-server:
     build:
@@ -85,8 +92,9 @@ services:
       - "8085:5000"
     environment:
       PORT: 5000
-      OIDC_ISSUER: "http://authentication-identity-server:8080/realms/master"
-      OIDC_AUDIENCE: "myapp"
+      OIDC_ISSUER: "http://authentication-identity-server:8080/realms/realm_sv001"
+      OIDC_AUDIENCE: "flask-app"
+      KEYCLOAK_INTERNAL_URL: "http://authentication-identity-server:8080"
       DB_HOST: "relational-database-server"
       DB_USER: "root"
       DB_PASS: "root"
@@ -96,11 +104,13 @@ services:
       relational-database-server:
         condition: service_healthy
     networks:
-      - cloud-net
+      cloud-net:
+        aliases:
+          - app-server
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:5000/hello || exit 1"]
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/hello')\" || exit 1"]
       interval: 10s
       timeout: 3s
       retries: 3
@@ -120,7 +130,9 @@ services:
       - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
       - mariadb_data:/var/lib/mysql
     networks:
-      - cloud-net
+      cloud-net:
+        aliases:
+          - db
     mem_limit: 256m
     cpus: 0.5
     healthcheck:
@@ -131,35 +143,101 @@ services:
       start_period: 15s
 
   # =========================================================================
-  # THÀNH VIÊN 3 (TV3): Keycloak, MinIO & Bind9 Internal DNS
+  # THÀNH VIÊN 3 (TV3 - Nguyễn Hải Đăng): Keycloak, MinIO & Bind9 Internal DNS
   # =========================================================================
-  # authentication-identity-server:
-  #   container_name: authentication-identity-server
-  #   networks:
-  #     - cloud-net
-  #
-  # object-storage-server:
-  #   container_name: object-storage-server
-  #   networks:
-  #     - cloud-net
-  #
-  # internal-dns-server:
-  #   container_name: internal-dns-server
-  #   networks:
-  #     - cloud-net
+  authentication-identity-server:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: authentication-identity-server
+    hostname: authentication-identity-server
+    command: ["start-dev", "--import-realm"]
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: "localhost"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    volumes:
+      - ./authentication-identity-server/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+    networks:
+      cloud-net:
+        aliases:
+          - keycloak
+    mem_limit: 512m
+    cpus: 1.0
+
+  object-storage-server:
+    image: minio/minio:latest
+    container_name: object-storage-server
+    hostname: object-storage-server
+    command: ["server", "/data", "--console-address", ":9001"]
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - ./object-storage-server/data:/data
+    networks:
+      cloud-net:
+        aliases:
+          - minio
+    mem_limit: 256m
+    cpus: 0.5
+
+  internal-dns-server:
+    image: internetsystemsconsortium/bind9:9.18
+    container_name: internal-dns-server
+    hostname: internal-dns-server
+    restart: unless-stopped
+    ports:
+      - "1053:53/udp"
+      - "1053:53/tcp"
+    volumes:
+      - ./internal-dns-server/named.conf.options:/etc/bind/named.conf.options:ro
+      - ./internal-dns-server/named.conf.local:/etc/bind/named.conf.local:ro
+      - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
+    networks:
+      cloud-net:
+        aliases:
+          - dns-server
+    mem_limit: 128m
+    cpus: 0.5
 
   # =========================================================================
-  # THÀNH VIÊN 4 (TV4): Prometheus, Grafana & Exporters
+  # THÀNH VIÊN 4 (TV4): Prometheus (9090), Grafana (3000) & Node Exporter (9100)
+  # (Để lại cho TV4 tự cấu hình và mở comment)
   # =========================================================================
+  # monitoring-node-exporter-server:
+  #   container_name: monitoring-node-exporter-server
+  #   ports:
+  #     - "9100:9100"
+  #   networks:
+  #     cloud-net:
+  #       aliases:
+  #         - node-exporter
+  #
   # monitoring-prometheus-server:
   #   container_name: monitoring-prometheus-server
+  #   ports:
+  #     - "9090:9090"
   #   networks:
-  #     - cloud-net
+  #     cloud-net:
+  #       aliases:
+  #         - prometheus
   #
   # monitoring-grafana-dashboard-server:
   #   container_name: monitoring-grafana-dashboard-server
+  #   ports:
+  #     - "3000:3000"
   #   networks:
-  #     - cloud-net
+  #     cloud-net:
+  #       aliases:
+  #         - grafana
 
 networks:
   cloud-net:
