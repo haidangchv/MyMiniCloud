@@ -1,0 +1,32 @@
+[
+  {
+    "id": "52300181",
+    "name": "Bui Huy Bau",
+    "major": "Cloud Computing",
+    "gpa": 3.85
+  },
+  {
+    "id": "SV002",
+    "name": "Nguyen Van A",
+    "major": "Computer Science",
+    "gpa": 3.65
+  },
+  {
+    "id": "SV003",
+    "name": "Tran Thi B",
+    "major": "Information Technology",
+    "gpa": 3.75
+  },
+  {
+    "id": "SV004",
+    "name": "Le Van C",
+    "major": "Cyber Security",
+    "gpa": 3.50
+  },
+  {
+    "id": "SV005",
+    "name": "Pham Minh D",
+    "major": "Software Engineering",
+    "gpa": 3.90
+  }
+]
