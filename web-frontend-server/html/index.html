@@ -1,59 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyMiniCloud - Home</title>
-    <link rel="stylesheet" href="/styles.css">
+    <meta name="theme-color" content="#080c16">
+    <meta name="description" content="Ba bài về cách NASA đưa dữ liệu qua những chặng liên lạc bị gián đoạn.">
+    <title>Mạng DTN của NASA | MyMiniCloud</title>
+    <link rel="stylesheet" href="blog/article.css">
+    <script src="blog/article.js" defer></script>
 </head>
-<body>
-    <header>
-        <h1>MyMiniCloud – Home</h1>
-        <p>Hệ thống mô phỏng hạ tầng Cloud bằng Docker Compose.</p>
-        <p>Thành viên phụ trách Web, API Gateway &amp; Load Balancing: <strong>TV1 - Nguyễn Xuân Bằng</strong>.</p>
-        <p>Node Web đang phản hồi (Round Robin): <code>__SERVER_HOSTNAME__</code></p>
+<body class="home">
+    <a class="skip" href="#noi-dung">Đến nội dung</a>
+    <header class="site-header wrap">
+        <a class="brand" href="index.html"><span aria-hidden="true" class="brand-mark"></span> MyMiniCloud</a>
+        <nav aria-label="Điều hướng chính"><a href="#ba-bai">Ba bài viết</a><a class="nav-link" href="blog/index.html">Danh mục blog <span aria-hidden="true">↗</span></a></nav>
     </header>
-
-    <nav>
-        <a href="/">Trang chủ</a> |
-        <a href="/blog/">Tất cả bài viết Blog</a> |
-        <a href="/node">Kiểm tra Node (Load Balancing)</a> |
-        <a href="/api/hello">API /hello</a> |
-        <a href="/api/student">API /student</a> |
-        <a href="/student/">Route /student/</a> |
-        <a href="/api/students-db">API /students-db</a>
-    </nav>
-
-    <section class="card">
-        <h2>Danh sách 3 bài viết Blog công nghệ</h2>
-        <ul>
-            <li>
-                <a href="/blog/blog1.html"><strong>Bài 1: Dockerfile, image và container khác nhau thế nào?</strong></a>
-                <p>Tìm hiểu cách đóng gói cấu hình Nginx, HTML và chạy Web Server bằng Docker.</p>
-            </li>
-            <li>
-                <a href="/blog/blog2.html"><strong>Bài 2: Nginx phục vụ Web và làm reverse proxy</strong></a>
-                <p>Phân biệt vai trò giữa Web Server phục vụ nội dung tĩnh và API Gateway điều phối request.</p>
-            </li>
-            <li>
-                <a href="/blog/blog3.html"><strong>Bài 3: Giao tiếp giữa container trong cloud-net</strong></a>
-                <p>Cơ chế phân giải tên service (Service Discovery), mạng nội bộ Docker và cổng kết nối.</p>
-            </li>
-        </ul>
-        <p><a href="/blog/">Xem trang danh mục Blog đầy đủ &rarr;</a></p>
-    </section>
-
-    <section class="card">
-        <h2>Kiến trúc cụm Web &amp; API Gateway (TV1)</h2>
-        <ul>
-            <li><strong>API Gateway:</strong> <code>api-gateway-proxy-server</code> (Nginx Reverse Proxy &amp; Load Balancer)</li>
-            <li><strong>Web Server Cluster (Round Robin):</strong> <code>web-frontend-server</code> &amp; <code>web-frontend-server-2</code></li>
-            <li><strong>Backend Routing:</strong> Chuyển tiếp <code>/api/*</code>, <code>/student</code>, <code>/students-db</code> tới <code>application-backend-server:5000</code></li>
-        </ul>
-    </section>
-
-    <footer>
-        <p>MyMiniCloud Project &mdash; Docker Compose &amp; Cloud Infrastructure</p>
+    <main id="noi-dung">
+        <section class="hero wrap">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="status-dot"></span> Liên lạc không gian</p>
+                <h1>Mạng DTN<br><em>của NASA</em></h1>
+                <p class="lead">Khi tàu vũ trụ mất liên lạc, dữ liệu có thể chờ tại một trạm trung gian. Tìm hiểu cách NASA chuyển từng gói dữ liệu qua những chặng kết nối cách xa nhau.</p>
+                <a class="button" href="#ba-bai">Khám phá 3 bài viết <span aria-hidden="true">↓</span></a>
+            </div>
+            <figure class="visual" data-orbit>
+    <div class="visual-frame">
+        <img src="images/dtn-earth-rise.webp" alt="Ánh bình minh viền quanh Trái Đất, chụp từ Trạm Vũ trụ Quốc tế" fetchpriority="high">
+        <div class="orbital-layer" aria-hidden="true">
+            <span class="orbit orbit-a"><i></i></span>
+            <span class="orbit orbit-b"><i></i></span>
+            <span class="orbit orbit-c"></span>
+        </div>
+    </div>
+    <figcaption><a href="https://www.nasa.gov/image-article/an-orbital-sunrise-illuminates-earths-atmosphere/">Bình minh trên quỹ đạo · NASA <span aria-hidden="true">↗</span></a></figcaption>
+</figure>
+        </section>
+        <div class="wrap relay-strip" aria-label="Ba bước chuyển dữ liệu DTN">
+            <span><b>01</b> Đóng gói dữ liệu</span>
+            <span><b>02</b> Lưu khi mất tín hiệu</span>
+            <span><b>03</b> Gửi khi có liên kết</span>
+        </div>
+        <section id="ba-bai" class="wrap collection">
+            <p class="eyebrow">Loạt bài DTN</p>
+            <h2>Hành trình của dữ liệu</h2>
+            <ol class="story-grid">
+    <li class="story theme-intro">
+        <a href="blog/blog1.html">
+            <div class="story-img"><img src="images/dtn-illuma-t.webp" alt="" loading="lazy"></div>
+            <div class="story-copy">
+                <p class="eyebrow story-kicker"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h5m8 0h5M8 8h8v8H8z"/><circle cx="3" cy="12" r="1.5"/><circle cx="21" cy="12" r="1.5"/></svg> 01 / Giới thiệu</p>
+                <h3>DTN là gì?</h3>
+                <p>Dữ liệu đi qua không gian như thế nào khi đường truyền bị gián đoạn? DTN cho phép mỗi nút giữ dữ liệu và chuyển tiếp khi có liên lạc.</p>
+                <span class="story-link">Đọc bài <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+    </li>
+    <li class="story theme-history">
+        <a href="blog/blog2.html">
+            <div class="story-img"><img src="images/dtn-hartley-2.webp" alt="" loading="lazy"></div>
+            <div class="story-copy">
+                <p class="eyebrow story-kicker"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16M6 18v-4m6 4V9m6 9V4"/><circle cx="6" cy="11" r="1"/><circle cx="12" cy="6" r="1"/></svg> 02 / Quá trình phát triển</p>
+                <h3>DTN đã phát triển ra sao?</h3>
+                <p>Từ ý tưởng Internet liên hành tinh, NASA đưa DTN lên tàu thăm dò, trạm ISS và cuối cùng vào các dịch vụ liên lạc của mình.</p>
+                <span class="story-link">Đọc bài <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+    </li>
+    <li class="story theme-uses">
+        <a href="blog/blog3.html">
+            <div class="story-img"><img src="images/dtn-pace.webp" alt="" loading="lazy"></div>
+            <div class="story-copy">
+                <p class="eyebrow story-kicker"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5a10 10 0 0 0 13 13L6 5Zm5 11-3 5m0 0h8m1-11 4-4M15 5a4 4 0 0 1 4 4"/><circle cx="21" cy="4" r="1"/></svg> 03 / Ứng dụng</p>
+                <h3>NASA dùng DTN ở đâu?</h3>
+                <p>Từ dữ liệu vận hành của PACE đến thử nghiệm laser trên ISS và mạng chuyển tiếp quanh Mặt Trăng.</p>
+                <span class="story-link">Đọc bài <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+    </li>
+</ol>
+        </section>
+    </main>
+    <footer class="site-footer wrap">
+        <span>MyMiniCloud · Mạng không gian</span>
+        <nav aria-label="Tiện ích dự án">
+            <a href="/node">Kiểm tra Node</a>
+            <a href="/api/hello">API Hello</a>
+            <a href="/api/student">API Student</a>
+            <a href="/student/">Route /student/</a>
+            <a href="/api/students-db">API Students DB</a>
+        </nav>
     </footer>
 </body>
 </html>

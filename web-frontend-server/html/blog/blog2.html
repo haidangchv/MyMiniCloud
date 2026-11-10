@@ -1,48 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nginx phục vụ Web và làm reverse proxy | MyMiniCloud</title>
-    <link rel="stylesheet" href="/styles.css">
+    <meta name="theme-color" content="#080c16">
+    <meta name="description" content="Từ ý tưởng Internet liên hành tinh, NASA đưa DTN lên tàu thăm dò, trạm ISS và cuối cùng vào các dịch vụ liên lạc của mình.">
+    <title>DTN đã phát triển ra sao? | MyMiniCloud</title>
+    <link rel="stylesheet" href="../blog/article.css">
+    <script src="../blog/article.js" defer></script>
 </head>
-<body>
-    <nav>
-        <a href="/">Trang chủ</a> |
-        <a href="/blog/">Danh sách bài viết</a>
-    </nav>
-    <article>
-        <h1>Nginx phục vụ Web và làm reverse proxy</h1>
-        <p>Tác giả: xbanghjhj</p>
-        <figure>
-            <img src="/images/nginx-flow.svg" alt="Nginx phục vụ Web và làm reverse proxy">
-            <figcaption>Hình minh họa nguyên lý: Nginx phục vụ Web và làm reverse proxy.</figcaption>
-        </figure>
-        <h2>Phục vụ nội dung tĩnh</h2>
-<p>Nginx có thể đọc file HTML, CSS và ảnh từ hệ thống file
-để trả về cho trình duyệt. Trong MyMiniCloud, nội dung Web
-được đặt tại <code>/usr/share/nginx/html</code>.</p>
-
-<h2>Vai trò reverse proxy</h2>
-<p>Khi làm reverse proxy, Nginx nhận request, chuyển đến server
-phía sau, rồi trả phản hồi về client. Cấu hình location và
-proxy_pass xác định cách định tuyến request.</p>
-
-<h2>Phân biệt hai vai trò trong dự án</h2>
-<ul>
-    <li>Web Server: phục vụ các trang HTML và tài nguyên tĩnh.</li>
-    <li>API Gateway: chuyển request đến Web hoặc backend phù hợp.</li>
-</ul>
-<p>Ở mốc Web cơ bản, trình duyệt truy cập cổng 8080 của Windows;
-Docker chuyển kết nối đến cổng 80 trong container Web.</p>
-
-<p>Nguồn:
-<a href="https://nginx.org/en/docs/beginners_guide.html">
-Nginx — Beginner's Guide</a></p>
-    </article>
-    <footer>
-        <a href="/blog/">Quay lại danh sách bài viết</a> |
-        <a href="/">Quay lại trang chủ</a>
+<body class="article-page theme-history">
+    <a class="skip" href="#noi-dung">Đến nội dung</a>
+    <header class="site-header wrap">
+        <a class="brand" href="../index.html"><span aria-hidden="true" class="brand-mark"></span> MyMiniCloud</a>
+        <nav aria-label="Điều hướng chính"><a class="nav-link" href="index.html"><span aria-hidden="true">←</span> Danh sách bài viết</a></nav>
+    </header>
+    <main id="noi-dung">
+        <article class="wrap">
+            <header class="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="status-dot"></span> 02 / 03 · Quá trình phát triển</p>
+                    <h1>DTN đã phát triển ra sao?</h1>
+                    <p class="lead">Từ ý tưởng Internet liên hành tinh, NASA đưa DTN lên tàu thăm dò, trạm ISS và cuối cùng vào các dịch vụ liên lạc của mình.</p>
+                </div>
+                <figure class="visual" data-orbit>
+    <div class="visual-frame">
+        <img src="../images/dtn-hartley-2.webp" alt="Ảnh cận cảnh nhân sao chổi Hartley 2 do tàu EPOXI chụp" fetchpriority="high">
+        <div class="orbital-layer" aria-hidden="true">
+            <span class="orbit orbit-a"><i></i></span>
+            <span class="orbit orbit-b"><i></i></span>
+            <span class="orbit orbit-c"></span>
+        </div>
+    </div>
+    <figcaption><a href="https://science.nasa.gov/photojournal/up-close-and-personal-with-hartley-2/">Hartley 2, ảnh chụp năm 2010 bởi EPOXI · NASA/JPL-Caltech/UMD <span aria-hidden="true">↗</span></a></figcaption>
+</figure>
+            </header>
+            <div class="article-layout">
+                <nav class="toc" aria-label="Trong bài viết">
+                    <p class="eyebrow">Trong bài viết</p>
+                    <ol>
+                        <li><a href="#dau-moc">Những cột mốc chính</a></li>
+                        <li><a href="#y-nghia">Từ thử nghiệm đến dịch vụ</a></li>
+                    </ol>
+                </nav>
+                <div class="article-body">
+                    <section id="dau-moc">
+                        <h2>Những cột mốc chính</h2>
+                        <ol class="timeline">
+    <li><time datetime="1998">1998</time><div><h3>Ý tưởng Internet liên hành tinh</h3><p>Vint Cerf làm việc với Adrian Hooke và các kỹ sư tại JPL để nghiên cứu cách mở rộng kiến trúc liên lạc từ Trái Đất ra không gian sâu.</p><a href="https://descanso.jpl.nasa.gov/seminars/abstracts/sem071901_ab.html">Tư liệu JPL</a></div></li>
+    <li><time datetime="2008">2008</time><div><h3>Thử nghiệm DINET trên Deep Impact/EPOXI</h3><p>JPL thử DTN trên tàu EPOXI. Khoảng 300 ảnh thử được gửi từ các nút ở JPL lên tàu rồi chuyển về, cho thấy bundle có thể đi qua nhiều chặng giữa Trái Đất và tàu.</p><a href="https://www.nasa.gov/image-article/october-2008-disruption-tolerant-networking-dtn-tested-spacecraft/">Báo cáo thử nghiệm của NASA</a></div></li>
+    <li><time datetime="2016-05">2016</time><div><h3>ISS đưa DTN vào phục vụ thiết bị thí nghiệm</h3><p>Tháng 5, Trạm Vũ trụ Quốc tế triển khai dịch vụ DTN để chuyển dữ liệu của các thiết bị khoa học. Trọng tâm chuyển từ chứng minh công nghệ sang hỗ trợ hoạt động thường xuyên trên quỹ đạo.</p><a href="https://www.nasa.gov/glenn/glenn-expertise-space-exploration/scan/high-rate-delay-tolerant-networking/">NASA Glenn</a></div></li>
+    <li><time datetime="2022-01">2022</time><div><h3>Chuẩn hóa Bundle Protocol phiên bản 7</h3><p>IETF công bố RFC 9171, dựa trên kinh nghiệm triển khai đặc tả thử nghiệm trước đó. Chuẩn chung giúp các hệ thống độc lập trao đổi bundle theo cùng quy tắc.</p><a href="https://www.rfc-editor.org/rfc/rfc9171.html">Đặc tả RFC 9171</a></div></li>
+    <li><time datetime="2024">2024</time><div><h3>PACE vận hành DTN, ILLUMA-T thử DTN qua laser</h3><p>PACE dùng DTN để gửi dữ liệu theo dõi tình trạng tàu. Cùng năm, thử nghiệm ILLUMA-T và LCRD dùng liên lạc laser để đánh giá DTN ở tốc độ cao.</p><a href="https://www.nasa.gov/technology/space-comms/nasas-near-space-network-enables-pace-climate-mission-to-phone-home/">NASA · PACE</a> · <a href="https://www.nasa.gov/goddard/esc/lcrd/">NASA · LCRD</a></div></li>
+    <li><time datetime="2026-01">2026</time><div><h3>DTN trở thành dịch vụ vận hành</h3><p>Sau khi dự án DTN liên trung tâm kết thúc vào tháng 1, NASA đưa DTN vào hoạt động trên cả Near Space Network và Deep Space Network.</p><a href="https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/">NASA · Dịch vụ DTN</a></div></li>
+</ol>
+                    </section>
+                    <section id="y-nghia">
+                        <h2>Từ thử nghiệm đến dịch vụ</h2>
+                        <p>DINET cho thấy dữ liệu có thể được chuyển tiếp ngoài không gian. ISS và PACE cho thấy cơ chế đó có thể hỗ trợ công việc hằng ngày của một nhiệm vụ. Khi các mạng liên lạc của NASA cung cấp DTN như một dịch vụ, các nhiệm vụ mới có thể dùng chung hạ tầng chuyển dữ liệu.</p>
+                    </section>
+                    <section class="sources">
+                        <h2>Tài liệu tham khảo</h2>
+                        <ul>
+                            <li><a href="https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/">NASA · DTN và lộ trình triển khai</a></li>
+                            <li><a href="https://www.rfc-editor.org/rfc/rfc9171.html">IETF · Lịch sử và đặc tả Bundle Protocol</a></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer wrap">
+        <a href="index.html">← Quay lại danh sách bài viết</a><a href="blog3.html">Ứng dụng <span aria-hidden="true">→</span></a>
     </footer>
 </body>
 </html>
