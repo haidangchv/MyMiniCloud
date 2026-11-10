@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nginx phục vụ Web và làm reverse proxy | MyMiniCloud</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Trang chủ</a> |
+        <a href="/blog/">Danh sách bài viết</a>
+    </nav>
+    <article>
+        <h1>Nginx phục vụ Web và làm reverse proxy</h1>
+        <p>Tác giả: xbanghjhj</p>
+        <figure>
+            <img src="/images/nginx-flow.svg" alt="Nginx phục vụ Web và làm reverse proxy">
+            <figcaption>Hình minh họa nguyên lý: Nginx phục vụ Web và làm reverse proxy.</figcaption>
+        </figure>
+        <h2>Phục vụ nội dung tĩnh</h2>
+<p>Nginx có thể đọc file HTML, CSS và ảnh từ hệ thống file
+để trả về cho trình duyệt. Trong MyMiniCloud, nội dung Web
+được đặt tại <code>/usr/share/nginx/html</code>.</p>
+
+<h2>Vai trò reverse proxy</h2>
+<p>Khi làm reverse proxy, Nginx nhận request, chuyển đến server
+phía sau, rồi trả phản hồi về client. Cấu hình location và
+proxy_pass xác định cách định tuyến request.</p>
+
+<h2>Phân biệt hai vai trò trong dự án</h2>
+<ul>
+    <li>Web Server: phục vụ các trang HTML và tài nguyên tĩnh.</li>
+    <li>API Gateway: chuyển request đến Web hoặc backend phù hợp.</li>
+</ul>
+<p>Ở mốc Web cơ bản, trình duyệt truy cập cổng 8080 của Windows;
+Docker chuyển kết nối đến cổng 80 trong container Web.</p>
+
+<p>Nguồn:
+<a href="https://nginx.org/en/docs/beginners_guide.html">
+Nginx — Beginner's Guide</a></p>
+    </article>
+    <footer>
+        <a href="/blog/">Quay lại danh sách bài viết</a> |
+        <a href="/">Quay lại trang chủ</a>
+    </footer>
+</body>
+</html>

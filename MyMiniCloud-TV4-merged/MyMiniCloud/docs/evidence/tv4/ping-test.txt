@@ -1,0 +1,23 @@
+=== Ping test trong mang cloud-net - 2026-11-10 16:32:26 ===
+api-gateway-proxy-server                 OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.146/1.137/3.098 ms 
+web-frontend-server                      OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.152/0.655/1.647 ms 
+web-frontend-server-2                    OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.163/0.540/1.226 ms 
+application-backend-server               OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.152/0.612/1.465 ms 
+relational-database-server               OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.141/0.744/1.913 ms 
+authentication-identity-server           SKIP (container chua chay)
+object-storage-server                    SKIP (container chua chay)
+internal-dns-server                      SKIP (container chua chay)
+monitoring-node-exporter-server          OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.143/0.318/0.664 ms 
+monitoring-cadvisor-server               OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.166/0.543/1.297 ms 
+monitoring-prometheus-server             OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.148/0.548/1.331 ms 
+monitoring-grafana-dashboard-server      OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.140/0.433/0.929 ms 
+
+Ket qua: 9 OK, 0 FAIL, 3 SKIP
+
+--- Kiem tra HTTP tu host ---
+http://localhost:8080                         HTTP 200
+http://localhost:8080/api/hello               HTTP 200
+http://localhost:9090/-/healthy               HTTP 200
+http://localhost:9100/metrics                 HTTP 200
+http://localhost:8083/healthz                 HTTP 200
+http://localhost:3000/api/health              HTTP 200

@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  # Muc 7 (co ban): Node Exporter - CPU/RAM/Network cua may chu
+  - job_name: 'node'
+    static_configs:
+      - targets: ['monitoring-node-exporter-server:9100']
+
+  # Muc 7 (mo rong): giam sat chinh web-frontend-server (endpoint /metrics trong conf.default)
+  - job_name: 'web'
+    static_configs:
+      - targets: ['web-frontend-server:80']
+
+  # Bo sung: cAdvisor - CPU/RAM/Network theo tung container
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['monitoring-cadvisor-server:8080']
+
+  # Prometheus tu giam sat chinh no
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

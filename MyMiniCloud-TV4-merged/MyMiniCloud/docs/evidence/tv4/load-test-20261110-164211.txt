@@ -1,0 +1,58 @@
+=== Load test 2026-11-10 16:42:11 ===
+URL=http://localhost:8080/  requests=20000  concurrency=50
+
+(ab chua cai - chay trong container, URL noi bo: http://api-gateway-proxy-server:80/)
+This is ApacheBench, Version 2.3 <$Revision: 1934973 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking api-gateway-proxy-server (be patient)
+Completed 2000 requests
+Completed 4000 requests
+Completed 6000 requests
+Completed 8000 requests
+Completed 10000 requests
+Completed 12000 requests
+Completed 14000 requests
+Completed 16000 requests
+Completed 18000 requests
+Completed 20000 requests
+Finished 20000 requests
+
+
+Server Software:        nginx/1.30.6
+Server Hostname:        api-gateway-proxy-server
+Server Port:            80
+
+Document Path:          /
+Document Length:        2581 bytes
+
+Concurrency Level:      50
+Time taken for tests:   17.136 seconds
+Complete requests:      20000
+Failed requests:        0
+Total transferred:      58820000 bytes
+HTML transferred:       51620000 bytes
+Requests per second:    1167.12 [#/sec] (mean)
+Time per request:       42.840 [ms] (mean)
+Time per request:       0.857 [ms] (mean, across all concurrent requests)
+Transfer rate:          3352.05 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    6   2.9      6      17
+Processing:     1   37  32.1     14     180
+Waiting:        0   34  31.7     10     177
+Total:          1   43  31.6     21     186
+
+Percentage of the requests served within a certain time (ms)
+  50%     21
+  66%     71
+  75%     77
+  80%     79
+  90%     85
+  95%     89
+  98%     93
+  99%     96
+ 100%    186 (longest request)
+Xong. Mo Grafana http://<host>:3000 de chup man hinh CPU/RAM/Network luc co tai.
