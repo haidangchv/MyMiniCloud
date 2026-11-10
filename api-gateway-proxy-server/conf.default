@@ -1,5 +1,5 @@
 upstream web_cluster {
-    # Mặc định Nginx sử dụng thuật toán cân bằng tải Round Robin (Mục mở rộng 10)
+    # Mặc định Nginx sử dụng thuật toán cân bằng tải Round Robin
     server web-frontend-server:80;
     server web-frontend-server-2:80;
 }
@@ -9,7 +9,7 @@ server {
     server_name _;
     charset utf-8;
 
-    # Sử dụng Docker DNS nội bộ để không bị lỗi khởi động khi các service khác chưa bật
+    # Sử dụng Docker DNS nội bộ để không bị lỗi khởi động khi service của TV2 chưa bật
     resolver 127.0.0.11 valid=10s ipv6=off;
 
     # Endpoint kiểm tra sức khỏe của riêng API Gateway
@@ -18,7 +18,7 @@ server {
         return 200 "API Gateway is healthy\n";
     }
 
-    # Định tuyến các request /api/* sang Flask Backend (TV2) - cắt tiền tố /api/
+    # Định tuyến các request /api/* sang Flask Backend (TV2)
     location /api/ {
         set $backend_upstream "http://application-backend-server:5000";
         rewrite ^/api/(.*)$ /$1 break;
@@ -35,8 +35,8 @@ server {
         error_page 502 503 504 = @backend_unavailable;
     }
 
-    # Mục mở rộng 9: Định tuyến /student, /student/, /students-db, /students-db/ trực tiếp tới Flask Backend
-    location ~ ^/(student|students-db)/?$ {
+    # Hỗ trợ gọi trực tiếp /student và /students-db qua Gateway
+    location ~ ^/(student|students-db)$ {
         set $backend_upstream "http://application-backend-server:5000";
 
         proxy_pass $backend_upstream$request_uri;
@@ -51,60 +51,13 @@ server {
         error_page 502 503 504 = @backend_unavailable;
     }
 
-    # Mục 9 Cơ bản: Định tuyến /auth và /auth/ sang Keycloak (TV3)
-    location = /auth {
-        return 302 /auth/;
-    }
-
-    location /auth/ {
-        set $auth_upstream "http://authentication-identity-server:8080";
-        rewrite ^/auth/(.*)$ /$1 break;
-
-        proxy_pass $auth_upstream;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-Port 80;
-
-        proxy_connect_timeout 3s;
-        proxy_read_timeout 30s;
-        proxy_intercept_errors on;
-        error_page 502 503 504 = @auth_unavailable;
-    }
-
-    # Hỗ trợ tải tài nguyên tĩnh, OIDC realms và trang Admin Console của Keycloak khi đi qua Gateway
-    location ~ ^/(realms|resources|admin|js)/ {
-        set $auth_upstream "http://authentication-identity-server:8080";
-
-        proxy_pass $auth_upstream$request_uri;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-Port 80;
-
-        proxy_connect_timeout 3s;
-        proxy_read_timeout 30s;
-        proxy_intercept_errors on;
-        error_page 502 503 504 = @auth_unavailable;
-    }
-
     # Phản hồi JSON rõ ràng khi Flask Backend (TV2) chưa được khởi chạy
     location @backend_unavailable {
         default_type application/json;
         return 503 '{"status":"unavailable","gateway":"api-gateway-proxy-server","target":"application-backend-server:5000","message":"Backend service (TV2) chua khoi chay hoac dang khoi dong."}\n';
     }
 
-    # Phản hồi JSON rõ ràng khi Keycloak Auth Server (TV3) chưa được khởi chạy
-    location @auth_unavailable {
-        default_type application/json;
-        return 503 '{"status":"unavailable","gateway":"api-gateway-proxy-server","target":"authentication-identity-server:8080","message":"Keycloak Auth service (TV3) chua khoi chay hoac dang khoi dong."}\n';
-    }
-
-    # Mục mở rộng 10: Cân bằng tải Round Robin cho cụm 2 Web Server (TV1)
+    # Cân bằng tải Round Robin cho cụm 2 Web Server (TV1)
     location / {
         proxy_pass http://web_cluster;
         proxy_set_header Host $host;
@@ -117,3 +70,4 @@ server {
         add_header X-Upstream-Addr $upstream_addr always;
     }
 }
+

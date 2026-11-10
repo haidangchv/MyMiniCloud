@@ -1,91 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#080c16">
-    <meta name="description" content="Dữ liệu đi qua không gian như thế nào khi đường truyền bị gián đoạn? DTN cho phép mỗi nút giữ dữ liệu và chuyển tiếp khi có liên lạc.">
-    <title>DTN là gì? | MyMiniCloud</title>
-    <link rel="stylesheet" href="../blog/article.css">
-    <script src="../blog/article.js" defer></script>
+    <title>Dockerfile, image và container | MyMiniCloud</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="article-page theme-intro">
-    <a class="skip" href="#noi-dung">Đến nội dung</a>
-    <header class="site-header wrap">
-        <a class="brand" href="../index.html"><span aria-hidden="true" class="brand-mark"></span> MyMiniCloud</a>
-        <nav aria-label="Điều hướng chính"><a class="nav-link" href="index.html"><span aria-hidden="true">←</span> Danh sách bài viết</a></nav>
-    </header>
-    <main id="noi-dung">
-        <article class="wrap">
-            <header class="hero">
-                <div class="hero-copy">
-                    <p class="eyebrow"><span class="status-dot"></span> 01 / 03 · Giới thiệu</p>
-                    <h1>DTN là gì?</h1>
-                    <p class="lead">Dữ liệu đi qua không gian như thế nào khi đường truyền bị gián đoạn? DTN cho phép mỗi nút giữ dữ liệu và chuyển tiếp khi có liên lạc.</p>
-                </div>
-                <figure class="visual" data-orbit>
-    <div class="visual-frame">
-        <img src="../images/dtn-illuma-t.webp" alt="Minh họa ILLUMA-T trên trạm ISS truyền tín hiệu laser tới vệ tinh LCRD" fetchpriority="high">
-        <div class="orbital-layer" aria-hidden="true">
-            <span class="orbit orbit-a"><i></i></span>
-            <span class="orbit orbit-b"><i></i></span>
-            <span class="orbit orbit-c"></span>
-        </div>
-    </div>
-    <figcaption><a href="https://www.nasa.gov/goddard/esc/lcrd/">Minh họa ILLUMA-T liên lạc với LCRD · NASA <span aria-hidden="true">↗</span></a></figcaption>
-</figure>
-            </header>
-            <div class="article-layout">
-                <nav class="toc" aria-label="Trong bài viết">
-                    <p class="eyebrow">Trong bài viết</p>
-                    <ol>
-                        <li><a href="#van-de">Vì sao cần DTN?</a></li>
-                        <li><a href="#luu-chuyen">Lưu và chuyển tiếp</a></li>
-                        <li><a href="#gioi-han">Bundle có thể chờ bao lâu?</a></li>
-                    </ol>
-                </nav>
-                <div class="article-body">
-                    <section id="van-de">
-                        <h2>Vì sao cần DTN?</h2>
-                        <p>Hãy hình dung một tàu thăm dò vừa chụp ảnh và muốn gửi ảnh về Trái Đất. Một hành tinh có thể che khuất đường truyền, hoặc tàu chỉ liên lạc được với trạm mặt đất khi bay vào vùng phủ sóng. Ngay cả khi có tín hiệu, khoảng cách vẫn khiến dữ liệu mất thời gian để tới nơi.</p>
-<p>DTN là viết tắt của <strong>Delay/Disruption Tolerant Networking</strong>, nghĩa là mạng chịu trễ và gián đoạn. NASA dùng nhóm giao thức này để chuyển dữ liệu qua nhiều chặng. Mỗi lần gửi chỉ cần chặng tiếp theo có thể liên lạc.</p>
-                    </section>
-                    <section id="luu-chuyen">
-                        <h2>Lưu và chuyển tiếp</h2>
-                        <p><strong>Bundle Protocol</strong> đóng gói dữ liệu ứng dụng cùng thông tin như nguồn, đích và thời hạn sử dụng. Nút nhận có thể lưu bundle trong lúc chờ chặng tiếp theo. Khi liên kết mở, nút chuyển tiếp bundle mà nguồn ban đầu không cần gửi lại toàn bộ hành trình.</p>
-<div class="signal-demo" data-dtn data-link="off">
-    <p class="eyebrow">Mô phỏng một tuyến DTN</p>
-    <ol class="signal-route">
-        <li><span>01 / NGUỒN</span><strong>Tàu thăm dò</strong></li>
-        <li><span>02 / LƯU TẠM</span><strong>Vệ tinh chuyển tiếp</strong><small><output data-queued>0</output> bundle đang chờ</small></li>
-        <li><span>03 / ĐÍCH</span><strong>Trạm mặt đất</strong><small><output data-received>0</output> bundle đã nhận</small></li>
-    </ol>
-    <p>Trong mô phỏng này, tàu luôn liên lạc được với vệ tinh. Chặng từ vệ tinh đến Trái Đất đang mất tín hiệu. Hãy gửi một bundle rồi mở lại chặng cuối.</p>
-    <div class="demo-actions" hidden>
-        <button type="button" data-send>Gửi một bundle</button>
-        <button type="button" data-link-toggle>Khôi phục liên kết</button>
-    </div>
-    <p class="demo-status" role="status" data-status>Liên kết đến Trái Đất đang gián đoạn.</p>
-</div>
-                    </section>
-                    <section id="gioi-han">
-                        <h2>Bundle có thể chờ bao lâu?</h2>
-                        <p>Mỗi bundle có thời hạn. Nếu hết hạn trong lúc chờ, nút sẽ loại bundle khỏi hàng đợi. Dung lượng lưu trữ và lịch liên lạc cũng ảnh hưởng đến lượng dữ liệu có thể chuyển đi. DTN giúp xử lý sự gián đoạn, còn độ trễ do khoảng cách vẫn tồn tại.</p>
-<p>DTN có thể chạy cùng các giao thức Internet và qua nhiều loại đường truyền, từ vô tuyến tới laser. Cách đóng gói và chuyển tiếp dữ liệu được tách khỏi cách từng đường truyền mang tín hiệu.</p>
-                    </section>
-                    <section class="sources">
-                        <h2>Tài liệu tham khảo</h2>
-                        <ul>
-                            <li><a href="https://www.nasa.gov/reference/delay-disruption-tolerant-networking-overview/">NASA · Tổng quan DTN</a></li>
-                            <li><a href="https://www.rfc-editor.org/rfc/rfc9171.html">IETF · Bundle Protocol phiên bản 7</a></li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
-        </article>
-    </main>
-    <footer class="site-footer wrap">
-        <a href="index.html">← Quay lại danh sách bài viết</a><a href="blog2.html">Quá trình phát triển <span aria-hidden="true">→</span></a>
-    </footer>
+<body>
+    <nav>
+        <a href="/">Trang chủ</a> |
+        <a href="/blog/">Danh sách bài viết</a>
+    </nav>
+    <article>
+        <h1>Dockerfile, image và container khác nhau thế nào?</h1>
+        <p>Tác giả: xbanghjhj</p>
+        <figure>
+            <img src="/images/docker-flow.svg"
+                 alt="Sơ đồ từ Dockerfile đến image và container">
+            <figcaption>Quy trình đóng gói và chạy Web Server.</figcaption>
+        </figure>
+
+        <h2>Ba thành phần cần phân biệt</h2>
+        <ul>
+            <li><strong>Dockerfile:</strong> mô tả các bước xây dựng image.</li>
+            <li><strong>Image:</strong> khuôn mẫu chỉ đọc để tạo container.</li>
+            <li><strong>Container:</strong> một instance được tạo từ image.</li>
+        </ul>
+
+        <h2>Áp dụng trong MyMiniCloud</h2>
+        <p>Dockerfile sao chép cấu hình Nginx và các file HTML vào image
+        <code>myminicloud-web:dev</code>. Service <code>web-frontend-server</code>
+        dùng image đó để phục vụ website.</p>
+        <p>Khi sửa HTML, ta build lại image và cập nhật container.</p>
+        <pre><code>docker compose up -d --build web-frontend-server</code></pre>
+
+        <p>Nguồn: <a href="https://docs.docker.com/get-started/docker-overview/">Docker — What is Docker?</a></p>
+    </article>
+    <footer><a href="/blog/">Quay lại danh sách bài viết</a></footer>
 </body>
 </html>

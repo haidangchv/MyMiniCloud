@@ -1,0 +1,20 @@
+$TTL 604800
+@   IN  SOA ns1.myminicloud.local. admin.myminicloud.local. (
+            2026110801 ; Serial
+            604800     ; Refresh
+            86400      ; Retry
+            2419200    ; Expire
+            604800 )   ; Negative Cache TTL
+;
+@           IN  NS      ns1.myminicloud.local.
+ns1         IN  A       127.0.0.1
+gateway     IN  A       127.0.0.1
+web1        IN  A       127.0.0.1
+web2        IN  A       127.0.0.1
+api         IN  A       127.0.0.1
+db          IN  A       127.0.0.1
+auth        IN  A       127.0.0.1
+storage     IN  A       127.0.0.1
+prometheus  IN  A       127.0.0.1
+grafana     IN  A       127.0.0.1
+

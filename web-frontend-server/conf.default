@@ -10,24 +10,20 @@ server {
     # Header giúp nhận diện container Web nào đang xử lý request (kiểm chứng Load Balancing Round Robin)
     add_header X-Served-By $hostname always;
 
-    # Tự động hiển thị tên container thực tế (web-frontend-server-1 / web-frontend-server-2) trên giao diện HTML
-    sub_filter '__SERVER_HOSTNAME__' '$hostname';
-    sub_filter_once off;
-
     location / {
         try_files $uri $uri/ =404;
+    }
+
+    # Endpoint /metrics cho Prometheus (Muc 7 mo rong - TV4): target job "web"
+    location = /metrics {
+        default_type text/plain;
+        return 200 "# HELP web_up Web frontend is up\n# TYPE web_up gauge\nweb_up 1\n";
     }
 
     location = /node {
         default_type text/plain;
         add_header X-Served-By $hostname always;
         return 200 "Web Server Node: $hostname\n";
-    }
-
-    # Endpoint /metrics chuẩn định dạng Prometheus (hỗ trợ Mục mở rộng 7 của TV4: job_name 'web' -> UP)
-    location = /metrics {
-        default_type text/plain;
-        return 200 "# HELP nginx_web_up Status of MyMiniCloud Web Frontend Server\n# TYPE nginx_web_up gauge\nnginx_web_up 1\n";
     }
 
     location = /blog {

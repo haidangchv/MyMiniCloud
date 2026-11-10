@@ -1,103 +1,38 @@
 {
-  "realm": "realm_sv001",
+  "realm": "myminicloud",
   "enabled": true,
-  "displayName": "MyMiniCloud OIDC Realm - TV3 Nguyen Hai Dang",
-  "accessTokenLifespan": 3600,
+  "displayName": "MyMiniCloud Identity Realm",
   "clients": [
     {
-      "clientId": "flask-app",
-      "name": "Flask Application Backend Client",
+      "clientId": "myminicloud-app",
       "enabled": true,
       "publicClient": true,
-      "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
       "redirectUris": [
-        "http://localhost/*",
         "http://localhost:8080/*",
-        "http://localhost:8085/*",
-        "http://localhost:5000/*"
+        "http://localhost/*"
       ],
       "webOrigins": [
         "*"
-      ],
-      "protocolMappers": [
-        {
-          "name": "flask-app-audience-mapper",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "flask-app",
-            "id.token.claim": "false",
-            "access.token.claim": "true"
-          }
-        }
-      ]
-    },
-    {
-      "clientId": "myapp",
-      "name": "Default App Client",
-      "enabled": true,
-      "publicClient": true,
-      "standardFlowEnabled": true,
-      "directAccessGrantsEnabled": true,
-      "redirectUris": [
-        "*"
-      ],
-      "webOrigins": [
-        "*"
-      ],
-      "protocolMappers": [
-        {
-          "name": "myapp-audience-mapper",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-audience-mapper",
-          "consentRequired": false,
-          "config": {
-            "included.client.audience": "myapp",
-            "id.token.claim": "false",
-            "access.token.claim": "true"
-          }
-        }
       ]
     }
   ],
   "users": [
     {
-      "username": "sv01",
+      "username": "sv001",
       "enabled": true,
       "emailVerified": true,
-      "firstName": "Hai Dang",
-      "lastName": "Nguyen",
-      "email": "sv01@cloud.local",
+      "firstName": "Bằng",
+      "lastName": "Nguyễn Xuân",
+      "email": "bang.nx@myminicloud.local",
       "credentials": [
         {
           "type": "password",
-          "value": "sv01",
+          "value": "minicloud123",
           "temporary": false
         }
-      ],
-      "realmRoles": [
-        "default-roles-realm_sv001"
-      ]
-    },
-    {
-      "username": "sv02",
-      "enabled": true,
-      "emailVerified": true,
-      "firstName": "Xuan Bang",
-      "lastName": "Nguyen",
-      "email": "sv02@cloud.local",
-      "credentials": [
-        {
-          "type": "password",
-          "value": "sv02",
-          "temporary": false
-        }
-      ],
-      "realmRoles": [
-        "default-roles-realm_sv001"
       ]
     }
   ]
 }
+

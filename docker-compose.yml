@@ -2,7 +2,7 @@ name: myminicloud
 
 services:
   # =========================================================================
-  # THÀNH VIÊN 1 (TV1 - Nguyễn Xuân Bằng): API Gateway, Load Balancer & Web
+  # THÀNH VIÊN 1 (TV1): API Gateway, Load Balancer & Web Server Cluster
   # =========================================================================
   api-gateway-proxy-server:
     build:
@@ -13,16 +13,14 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "8080:80"
     depends_on:
       web-frontend-server:
         condition: service_healthy
       web-frontend-server-2:
         condition: service_healthy
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.60
-        aliases:
-          - proxy
+      - cloud-net
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -40,13 +38,9 @@ services:
     hostname: web-frontend-server-1
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "8081:80"
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.10
-        aliases:
-          - web
-          - web-frontend-server1
+      - cloud-net
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -66,11 +60,7 @@ services:
     ports:
       - "8082:80"
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.11
-        aliases:
-          - web2
-          - web-frontend-server2
+      - cloud-net
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
@@ -81,7 +71,7 @@ services:
       start_period: 10s
 
   # =========================================================================
-  # THÀNH VIÊN 2 (TV2 - Bùi Huy Báu): Flask Application Backend & MariaDB
+  # THÀNH VIÊN 2 (TV2): Flask Application Backend & MariaDB
   # =========================================================================
   application-backend-server:
     build:
@@ -95,11 +85,8 @@ services:
       - "8085:5000"
     environment:
       PORT: 5000
-      OIDC_REALM: "realm_sv001"
-      OIDC_ISSUER: "http://localhost:8081/realms/realm_sv001"
-      OIDC_AUDIENCE: "flask-app"
-      KEYCLOAK_INTERNAL_URL: "http://authentication-identity-server:8080"
-      OIDC_JWKS_URL: "http://authentication-identity-server:8080/realms/realm_sv001/protocol/openid-connect/certs"
+      OIDC_ISSUER: "http://authentication-identity-server:8080/realms/master"
+      OIDC_AUDIENCE: "myapp"
       DB_HOST: "relational-database-server"
       DB_USER: "root"
       DB_PASS: "root"
@@ -109,15 +96,11 @@ services:
       relational-database-server:
         condition: service_healthy
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.20
-        aliases:
-          - app-server
-          - app-backend
+      - cloud-net
     mem_limit: 128m
     cpus: 0.5
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/hello')\" || exit 1"]
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:5000/hello || exit 1"]
       interval: 10s
       timeout: 3s
       retries: 3
@@ -137,10 +120,7 @@ services:
       - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
       - mariadb_data:/var/lib/mysql
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.50
-        aliases:
-          - db
+      - cloud-net
     mem_limit: 256m
     cpus: 0.5
     healthcheck:
@@ -151,115 +131,105 @@ services:
       start_period: 15s
 
   # =========================================================================
-  # THÀNH VIÊN 3 (TV3 - Nguyễn Hải Đăng): Keycloak, MinIO & Bind9 Internal DNS
+  # THÀNH VIÊN 3 (TV3): Keycloak, MinIO & Bind9 Internal DNS
   # =========================================================================
-  authentication-identity-server:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: authentication-identity-server
-    hostname: authentication-identity-server
-    command: ["start-dev", "--import-realm"]
-    restart: unless-stopped
-    ports:
-      - "8081:8080"
-    environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HOSTNAME_STRICT: "false"
-      KC_HTTP_ENABLED: "true"
-      KC_PROXY_HEADERS: "xforwarded"
-    volumes:
-      - ./authentication-identity-server/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
-    networks:
-      cloud-net:
-        ipv4_address: 10.10.10.40
-        aliases:
-          - keycloak
-    mem_limit: 1g
-    cpus: 1.0
+  # authentication-identity-server:
+  #   container_name: authentication-identity-server
+  #   networks:
+  #     - cloud-net
+  #
+  # object-storage-server:
+  #   container_name: object-storage-server
+  #   networks:
+  #     - cloud-net
+  #
+  # internal-dns-server:
+  #   container_name: internal-dns-server
+  #   networks:
+  #     - cloud-net
 
-  object-storage-server:
-    image: minio/minio:latest
-    container_name: object-storage-server
-    hostname: object-storage-server
-    command: ["server", "/data", "--console-address", ":9001"]
+  # =========================================================================
+  # THÀNH VIÊN 4 (TV4): Node Exporter, cAdvisor, Prometheus & Grafana
+  # =========================================================================
+  monitoring-node-exporter-server:
+    image: prom/node-exporter:v1.8.2
+    container_name: monitoring-node-exporter-server
+    hostname: monitoring-node-exporter-server
     restart: unless-stopped
     ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-    volumes:
-      - ./object-storage-server/data:/data
+      - "9100:9100"
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.30
-        aliases:
-          - minio
+      - cloud-net
+    mem_limit: 64m
+    cpus: 0.25
+
+  monitoring-cadvisor-server:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: monitoring-cadvisor-server
+    hostname: monitoring-cadvisor-server
+    restart: unless-stopped
+    privileged: true
+    command:
+      - "--docker_only=true"
+      - "--housekeeping_interval=10s"
+    ports:
+      - "8083:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - cloud-net
+    mem_limit: 320m
+    cpus: 0.5
+
+  monitoring-prometheus-server:
+    image: prom/prometheus:v2.54.1
+    container_name: monitoring-prometheus-server
+    hostname: monitoring-prometheus-server
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring-prometheus-server/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - cloud-net
+    depends_on:
+      - monitoring-node-exporter-server
+      - monitoring-cadvisor-server
     mem_limit: 256m
     cpus: 0.5
 
-  internal-dns-server:
-    image: internetsystemsconsortium/bind9:9.18
-    container_name: internal-dns-server
-    hostname: internal-dns-server
+  monitoring-grafana-dashboard-server:
+    image: grafana/grafana:11.2.0
+    container_name: monitoring-grafana-dashboard-server
+    hostname: monitoring-grafana-dashboard-server
     restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
     ports:
-      - "1053:53/udp"
-      - "1053:53/tcp"
+      - "3000:3000"
     volumes:
-      - ./internal-dns-server/named.conf.options:/etc/bind/named.conf.options:ro
-      - ./internal-dns-server/named.conf.local:/etc/bind/named.conf.local:ro
-      - ./internal-dns-server/db.cloud.local:/etc/bind/db.cloud.local:ro
+      - ./monitoring-grafana-dashboard-server/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring-grafana-dashboard-server/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana_data:/var/lib/grafana
     networks:
-      cloud-net:
-        ipv4_address: 10.10.10.53
-        aliases:
-          - dns-server
-    mem_limit: 128m
+      - cloud-net
+    depends_on:
+      - monitoring-prometheus-server
+    mem_limit: 384m
     cpus: 0.5
-
-  # =========================================================================
-  # THÀNH VIÊN 4 (TV4): Prometheus (9090), Grafana (3000) & Node Exporter (9100)
-  # (Để lại cho TV4 tự cấu hình và mở comment)
-  # =========================================================================
-  # monitoring-node-exporter-server:
-  #   container_name: monitoring-node-exporter-server
-  #   ports:
-  #     - "9100:9100"
-  #   networks:
-  #     cloud-net:
-  #       ipv4_address: 10.10.10.70
-  #       aliases:
-  #         - node-exporter
-  #
-  # monitoring-prometheus-server:
-  #   container_name: monitoring-prometheus-server
-  #   ports:
-  #     - "9090:9090"
-  #   networks:
-  #     cloud-net:
-  #       ipv4_address: 10.10.10.71
-  #       aliases:
-  #         - prometheus
-  #
-  # monitoring-grafana-dashboard-server:
-  #   container_name: monitoring-grafana-dashboard-server
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     cloud-net:
-  #       ipv4_address: 10.10.10.72
-  #       aliases:
-  #         - grafana
 
 networks:
   cloud-net:
     name: cloud-net
     driver: bridge
-    ipam:
-      config:
-        - subnet: 10.10.10.0/24
 
 volumes:
   mariadb_data:
+  prometheus_data:
+  grafana_data:

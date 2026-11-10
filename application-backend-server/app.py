@@ -11,29 +11,13 @@ app = Flask(__name__)
 # ==========================================
 # CẤU HÌNH KEYCLOAK OIDC
 # ==========================================
-OIDC_REALM = os.getenv("OIDC_REALM", "realm_sv001")
-ISSUER = os.getenv("OIDC_ISSUER", f"http://localhost:8081/realms/{OIDC_REALM}")
-AUDIENCE = os.getenv("OIDC_AUDIENCE", "flask-app")
-KEYCLOAK_INTERNAL_URL = os.getenv("KEYCLOAK_INTERNAL_URL", "http://authentication-identity-server:8080")
-JWKS_URL = os.getenv(
-    "OIDC_JWKS_URL",
-    f"{KEYCLOAK_INTERNAL_URL}/realms/{OIDC_REALM}/protocol/openid-connect/certs"
-)
-
-# Danh sách các Issuer hợp lệ của cùng Realm tin cậy (hỗ trợ cả gọi qua host 8081, qua Gateway /auth, hoặc nội bộ)
-ALLOWED_ISSUERS = {
-    ISSUER.rstrip("/"),
-    f"http://localhost:8081/realms/{OIDC_REALM}",
-    f"http://authentication-identity-server:8080/realms/{OIDC_REALM}",
-    f"http://localhost/auth/realms/{OIDC_REALM}",
-    f"http://localhost/realms/{OIDC_REALM}",
-}
-
+ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/master")
+AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
+JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
 _JWKS = None
 _TS = 0
 
 def get_jwks():
-    """Lấy JWKS từ đúng Realm tin cậy đã cấu hình (OIDC_JWKS_URL)"""
     global _JWKS, _TS
     now = time.time()
     if not _JWKS or (now - _TS > 600):
@@ -91,13 +75,11 @@ def index():
 
 # 1. API Cơ bản
 @app.get("/hello")
-@app.get("/hello/")
 def hello():
     return jsonify(message="Hello from App Server!")
 
 # 2. API Cơ bản bảo mật bằng Keycloak Token (OIDC)
 @app.get("/secure")
-@app.get("/secure/")
 def secure():
     auth = request.headers.get("Authorization", "")
     if not auth.startswith("Bearer "):
@@ -109,25 +91,10 @@ def secure():
         return jsonify(error="Authentication server JWKS unavailable"), 503
 
     try:
-        unverified_claims = jwt.get_unverified_claims(token)
-        token_issuer = unverified_claims.get("iss", "").rstrip("/")
-        if token_issuer not in ALLOWED_ISSUERS:
-            return jsonify(
-                error=f"Invalid issuer '{token_issuer}'. Expected one of: {sorted(ALLOWED_ISSUERS)}"
-            ), 401
-
-        payload = jwt.decode(
-            token,
-            jwks,
-            algorithms=["RS256"],
-            audience=AUDIENCE,
-            issuer=token_issuer,
-        )
+        payload = jwt.decode(token, jwks, algorithms=["RS256"], audience=AUDIENCE, issuer=ISSUER)
         return jsonify(
             message="Secure resource OK",
             preferred_username=payload.get("preferred_username", "unknown"),
-            audience=payload.get("aud"),
-            issuer=payload.get("iss"),
             roles=payload.get("realm_access", {}).get("roles", [])
         )
     except Exception as e:
@@ -135,7 +102,6 @@ def secure():
 
 # 3. Yêu cầu mở rộng Mục 2: API đọc danh sách sinh viên từ file students.json
 @app.get("/student")
-@app.get("/student/")
 def student():
     try:
         json_path = os.path.join(os.path.dirname(__file__), "students.json")
@@ -152,7 +118,6 @@ def student():
 
 # 4. Yêu cầu mở rộng Mục 3: API đọc danh sách sinh viên từ CSDL MariaDB (studentdb)
 @app.get("/students-db")
-@app.get("/students-db/")
 def students_db_get():
     try:
         conn = get_db_connection()
