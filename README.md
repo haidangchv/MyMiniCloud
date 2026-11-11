@@ -14,19 +14,22 @@ Hệ thống mô phỏng hạ tầng Cloud thu nhỏ sử dụng Docker Compose.
   - Sử dụng Docker DNS (`127.0.0.11`) và xử lý lỗi `@backend_unavailable` giúp Gateway hoạt động độc lập ngay cả khi service của TV2 chưa khởi chạy.
 - **Tích hợp Docker Compose & Mạng nội bộ `cloud-net`**.
 
-## Bảng cổng dịch vụ (TV1 & TV2)
+## Bảng cổng và IP trên cloud-net
 
-| Dịch vụ | Container Name | Cổng Host -> Container | Mô tả |
-|---|---|---|---|
-| API Gateway & Load Balancer | `api-gateway-proxy-server` | `80:80`, `8080:80` | Cổng vào chính cho Web & API |
-| Web Server Node 1 | `web-frontend-server` | `8081:80` | Instance Web 1 (Round Robin) |
-| Web Server Node 2 | `web-frontend-server-2` | `8082:80` | Instance Web 2 (Round Robin) |
-| Application Backend Server | `application-backend-server` | `5000:5000`, `8085:5000` | Flask RESTful API Backend |
-| Relational Database Server | `relational-database-server` | `3306:3306` | MariaDB RDBMS |
-| Node Exporter | `monitoring-node-exporter-server` | `9100:9100` | Metric CPU/RAM/Network của máy chủ |
-| cAdvisor | `monitoring-cadvisor-server` | `8083:8080` | Metric theo từng container |
-| Prometheus | `monitoring-prometheus-server` | `9090:9090` | Thu thập & truy vấn metric |
-| Grafana | `monitoring-grafana-dashboard-server` | `3000:3000` | Dashboard System Health |
+| Dịch vụ | Container | IP | Alias | Host → Container |
+|---|---|---|---|---|
+| Gateway | api-gateway-proxy-server | 10.10.10.60 | proxy | 80:80 |
+| Web 1 | web-frontend-server | 10.10.10.10 | web, web-frontend-server1 | 8080:80 |
+| Web 2 | web-frontend-server-2 | 10.10.10.11 | web2, web-frontend-server2 | 8082:80 |
+| Flask | application-backend-server | 10.10.10.20 | app-server, app-backend | 8085:5000, 5000:5000 |
+| MariaDB | relational-database-server | 10.10.10.50 | db | 3306:3306 |
+| Keycloak | authentication-identity-server | 10.10.10.40 | keycloak | 8081:8080 |
+| MinIO | object-storage-server | 10.10.10.30 | minio | 9000:9000, 9001:9001 |
+| Bind9 | internal-dns-server | 10.10.10.53 | dns-server, ns | 1053:53/udp, 1053:53/tcp |
+
+Subnet Docker là `10.10.10.0/24`. Tám dịch vụ trên bind `127.0.0.1` khi chạy local. Đặt `GATEWAY_HTTP_BIND=0.0.0.0` khi truy cập Gateway qua IP public EC2, đồng thời đặt `PUBLIC_BASE_URL` theo origin thực tế. Keycloak dùng realm `myminicloud` và client `myminicloud-app` hiện có của nhóm, admin qua `http://127.0.0.1:8081/auth/admin/`.
+
+Monitoring của nhóm vẫn gồm Node Exporter `9100`, cAdvisor `8083`, Prometheus `9090` và Grafana `3000`. Các dịch vụ này nhận IP từ dải `10.10.10.128/25`.
 
 ## Phạm vi công việc Thành viên 2 (TV2 - Bùi Huy Báu - MSSV: 52300181)
 
@@ -62,7 +65,7 @@ docker compose up -d --build
 
 # Prometheus: Status -> Targets, 4 target phải UP
 #   http://localhost:9090/targets      (truy vấn thử: node_cpu_seconds_total)
-curl http://localhost:8081/metrics      # endpoint /metrics của web
+curl http://localhost:8080/metrics      # endpoint /metrics của web
 
 # Grafana: http://localhost:3000  (admin / admin) -> thư mục MyMiniCloud -> System Health of 52300183
 
@@ -70,7 +73,7 @@ curl http://localhost:8081/metrics      # endpoint /metrics của web
 ./scripts/ping-test.sh | tee docs/evidence/tv4/ping-test.txt
 
 # Tạo tải để xem dashboard biến động (20.000 request, 50 kết nối đồng thời)
-./scripts/load-test.sh http://localhost:8080/ 20000 50
+./scripts/load-test.sh http://localhost/ 20000 50
 
 # Đổi MSSV trên dashboard (nếu cần)
 ./scripts/set-mssv.sh <MSSV> && docker restart monitoring-grafana-dashboard-server
@@ -81,7 +84,11 @@ lưu lượng của từng container (gateway, web...) xem ở biểu đồ **Co
 
 ## Hướng dẫn chạy và kiểm thử nhanh (PowerShell)
 
-### 1. Build và khởi chạy cụm dịch vụ TV1
+### 1. Cấu hình và khởi chạy
+
+Sao chép `.env.example` thành `.env`, điền `MARIADB_ROOT_PASSWORD`, `KEYCLOAK_ADMIN_PASSWORD` và `MINIO_ROOT_PASSWORD`. Khi dùng lại volume, điền đúng mật khẩu của volume đó. Keycloak dùng tài khoản demo và realm từ file export hiện có của nhóm.
+
+### Build và khởi chạy toàn bộ cụm
 ```powershell
 docker compose up -d --build
 docker compose ps
@@ -89,29 +96,29 @@ docker compose ps
 
 ### 2. Kiểm tra Web & Blog qua API Gateway
 ```powershell
-curl.exe -I http://localhost:8080/
-curl.exe -I http://localhost:8080/blog/
-curl.exe -I http://localhost:8080/blog/blog1.html
-curl.exe -I http://localhost:8080/blog/blog2.html
-curl.exe -I http://localhost:8080/blog/blog3.html
+curl.exe -I http://localhost/
+curl.exe -I http://localhost/blog/
+curl.exe -I http://localhost/blog/blog1.html
+curl.exe -I http://localhost/blog/blog2.html
+curl.exe -I http://localhost/blog/blog3.html
 ```
 
 ### 3. Kiểm chứng Load Balancing (Round Robin)
-Chạy lặp 6 lần liên tiếp để quan sát `web-frontend-server-1` và `web-frontend-server-2` luân phiên phản hồi:
+Chạy lặp 6 lần liên tiếp để quan sát `web-frontend-server1` và `web-frontend-server2` luân phiên phản hồi:
 ```powershell
-1..6 | ForEach-Object { curl.exe -s http://localhost:8080/node }
+1..6 | ForEach-Object { curl.exe -s http://localhost/node }
 ```
 Hoặc kiểm tra qua HTTP Response Header (`X-Served-By` và `X-Upstream-Addr`):
 ```powershell
-1..4 | ForEach-Object { curl.exe -sI http://localhost:8080/ | Select-String "X-Served-By|X-Upstream-Addr" }
+1..4 | ForEach-Object { curl.exe -sI http://localhost/ | Select-String "X-Served-By|X-Upstream-Addr" }
 ```
 
 ### 4. Kiểm tra định tuyến API Gateway tới Backend (TV2)
 ```powershell
-curl.exe -i http://localhost:8080/gateway-health
-curl.exe -i http://localhost:8080/api/hello
-curl.exe -i http://localhost:8080/api/student
-curl.exe -i http://localhost:8080/api/students-db
+curl.exe -i http://localhost/gateway-health
+curl.exe -i http://localhost/api/hello
+curl.exe -i http://localhost/api/student
+curl.exe -i http://localhost/api/students-db
 ```
 
 ### 5. Kiểm tra trực tiếp Flask Backend & MariaDB (TV2)
@@ -122,10 +129,33 @@ curl.exe http://localhost:5000/student
 curl.exe http://localhost:5000/students-db
 
 # Kiểm tra dữ liệu trực tiếp trong MariaDB container
-docker exec -it relational-database-server mariadb -uroot -proot -e "USE studentdb; SELECT * FROM students;"
+docker compose exec relational-database-server sh -c 'MYSQL_PWD="$MARIADB_ROOT_PASSWORD" mariadb -uroot -e "USE studentdb; SELECT * FROM students;"'
 ```
 
 ## Minh chứng (Evidence)
 Kết quả kiểm thử và ảnh chụp màn hình của TV1 được lưu tại: `docs/evidence/tv1/`
 
 Minh chứng của TV4 (ping, load test, ảnh Prometheus/Grafana) được lưu tại: `docs/evidence/tv4/`
+
+## Kiểm thử TV1
+
+Trang chủ có ba bài DTN kèm ba SVG. Các bài giữ ảnh NASA và liên kết về trang chủ. Nginx Gateway dùng `api-gateway-proxy-server/conf.default`, được COPY bởi Dockerfile của Gateway.
+
+Chạy bộ kiểm thử Web, nội dung, API sinh viên và tám lượt Round Robin từ PowerShell.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File docs/evidence/tv1/verify-tv1.ps1 -BaseUrl http://127.0.0.1 -OutputDirectory .local/tv1-http
+```
+
+Dùng thư mục output mới cho mỗi lượt để giữ bằng chứng cũ. Kết quả bắt buộc phải PASS. Kiểm tra thêm DNS và hai node trực tiếp.
+
+```powershell
+docker compose exec -T internal-dns-server dig '@127.0.0.1' web-frontend-server.cloud.local +short
+docker compose exec -T internal-dns-server dig +tcp '@127.0.0.1' app-backend.cloud.local +short
+curl.exe http://127.0.0.1:8080/node
+curl.exe http://127.0.0.1:8082/node
+```
+
+Trong buổi kiểm thử có thể tạm dừng Flask, khởi động lại Gateway và kiểm tra trang chủ trả HTTP 200, các đường `/api/hello`, `/student`, `/student/`, `/students-db` trả HTTP 503 với JSON `backend_unavailable`. Bật lại Flask và kiểm tra các tuyến API trở về HTTP 200.
+
+Đề bài còn yêu cầu publish ít nhất một image tùy chỉnh lên Docker Hub và deploy toàn bộ cụm lên EC2 Ubuntu. Hai bước đó cần URL và bằng chứng thực thi riêng trong phụ lục.

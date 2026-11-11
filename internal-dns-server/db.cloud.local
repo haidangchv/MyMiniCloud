@@ -1,22 +1,6 @@
-$TTL 1H
-@   IN SOA  ns.cloud.local. admin.cloud.local. (
-            2026110902 ; Serial
-            1H         ; Refresh
-            15M        ; Retry
-            1W         ; Expire
-            1H )       ; Negative Cache TTL
-;
-@                     IN NS   ns.cloud.local.
-ns                    IN A    10.10.10.53
-
-; Bản ghi cơ bản (Mục 6 Cơ bản) - Khớp 100% IP tĩnh container trên cloud-net (10.10.10.0/24)
-web-frontend-server   IN A    10.10.10.10
-web-frontend-server-2 IN A    10.10.10.11
-
-; Bản ghi mở rộng (Mục 6 Mở rộng - TV3 Nguyễn Hải Đăng)
-app-backend           IN A    10.10.10.20
-minio                 IN A    10.10.10.30
-keycloak              IN A    10.10.10.40
-db                    IN A    10.10.10.50
-dns-server            IN A    10.10.10.53
-proxy                 IN A    10.10.10.60
+; Template: generate-zones.py replaces values with current cloud-net IPs at start.
+$TTL 30
+$ORIGIN __ZONE__.
+@ IN SOA ns1.__ZONE__. admin.__ZONE__. (__SERIAL__ 60 30 86400 30)
+@ IN NS ns1.__ZONE__.
+__RECORDS__

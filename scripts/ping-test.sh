@@ -38,7 +38,7 @@ echo
 echo "Ket qua: $pass OK, $fail FAIL, $skip SKIP"
 echo
 echo "--- Kiem tra HTTP tu host ---"
-for url in http://localhost:8080 http://localhost:8080/api/hello http://localhost:9090/-/healthy http://localhost:9100/metrics http://localhost:8083/healthz http://localhost:3000/api/health; do
+for url in http://localhost/ http://localhost/api/hello http://localhost:9090/-/healthy http://localhost:9100/metrics http://localhost:8083/healthz http://localhost:3000/api/health; do
   code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 "$url" || echo ERR)
   printf "%-45s HTTP %s\n" "$url" "$code"
 done

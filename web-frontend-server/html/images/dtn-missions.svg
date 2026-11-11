@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270">
+  <rect width="480" height="270" fill="#291d22"/>
+  <path d="M80 154h320" fill="none" stroke="#b97752" stroke-width="2"/>
+  <g fill="#ffd096">
+    <circle cx="80" cy="154" r="5"/>
+    <circle cx="240" cy="154" r="5"/>
+    <circle cx="400" cy="154" r="5"/>
+  </g>
+  <g fill="none" stroke="#ffd096" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M62 108l32-32m-17 11-9-9-10 10 9 9m12 1 9 9 10-10-9-9m-19 17-10 10"/>
+    <rect x="230" y="80" width="20" height="33" rx="4"/>
+    <path d="M209 96h62m-53-12v24m44-24v24m-53-18h18v12h-18zm44 0h18v12h-18z"/>
+    <path d="M384 77h23l9 9v31h-32zm23 0v10h9m-25 11h18m-18 8h12"/>
+  </g>
+  <g fill="#ffd096" font-family="sans-serif" font-size="19" font-weight="bold" text-anchor="middle">
+    <text x="80" y="190">2008</text>
+    <text x="240" y="190">2016</text>
+    <text x="400" y="190">2022</text>
+  </g>
+  <g fill="#ffe2c4" font-family="sans-serif" font-size="15" text-anchor="middle">
+    <text x="80" y="217">DINET</text>
+    <text x="240" y="217">ISS</text>
+    <text x="400" y="217">BPv7</text>
+  </g>
+</svg>
