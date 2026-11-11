@@ -1,35 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyMiniCloud - Blog</title>
-    <link rel="stylesheet" href="/styles.css">
+    <meta name="theme-color" content="#080c16">
+    <meta name="description" content="Giới thiệu, quá trình phát triển và ứng dụng DTN của NASA.">
+    <title>Danh mục blog DTN | MyMiniCloud</title>
+    <link rel="stylesheet" href="../blog/article.css">
+    <script src="../blog/article.js" defer></script>
 </head>
-<body>
-    <nav><a href="/">Quay lại trang chủ</a></nav>
-    <h1>MyMiniCloud - Blog</h1>
-    <p>Ghi chép công nghệ của xbanghjhj.</p>
-
-    <section class="card">
-        <h2><a href="/blog/blog1.html">
-            Dockerfile, image và container khác nhau thế nào?
-        </a></h2>
-        <p>Tìm hiểu cách đóng gói và chạy Web bằng Docker.</p>
-    </section>
-
-    <section class="card">
-        <h2><a href="/blog/blog2.html">
-            Nginx phục vụ Web và làm reverse proxy
-        </a></h2>
-        <p>Phân biệt vai trò Web Server và API Gateway.</p>
-    </section>
-
-    <section class="card">
-        <h2><a href="/blog/blog3.html">
-            Giao tiếp giữa container trong cloud-net
-        </a></h2>
-        <p>Tên service, mạng Docker và cổng kết nối.</p>
-    </section>
+<body class="catalog">
+    <a class="skip" href="#noi-dung">Đến nội dung</a>
+    <header class="site-header wrap">
+        <a class="brand" href="../index.html"><span aria-hidden="true" class="brand-mark"></span> MyMiniCloud – Blog</a>
+        <nav aria-label="Điều hướng chính"><a class="nav-link" href="../index.html"><span aria-hidden="true">←</span> Trang chủ</a></nav>
+    </header>
+    <main id="noi-dung">
+        <section class="wrap collection catalog-intro">
+            <p class="eyebrow">Loạt bài · 01–03</p>
+            <h1>Khám phá mạng DTN</h1>
+            <p class="lead">Từ cách gửi một bundle khi mất kết nối đến những nhiệm vụ NASA đã đưa DTN vào vận hành.</p>
+            <ol class="story-grid">
+    <li class="story theme-intro">
+        <a href="blog1.html">
+            <div class="story-img"><img src="../images/dtn-illuma-t.webp" alt="" loading="lazy"></div>
+            <div class="story-copy">
+                <p class="eyebrow">01 / Giới thiệu</p>
+                <h3>DTN là gì?</h3>
+                <p>Dữ liệu đi qua không gian như thế nào khi đường truyền bị gián đoạn? DTN cho phép mỗi nút giữ dữ liệu và chuyển tiếp khi có liên lạc.</p>
+                <span class="story-link">Đọc bài <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+    </li>
+    <li class="story theme-history">
+        <a href="blog2.html">
+            <div class="story-img"><img src="../images/dtn-hartley-2.webp" alt="" loading="lazy"></div>
+            <div class="story-copy">
+                <p class="eyebrow">02 / Quá trình phát triển</p>
+                <h3>DTN đã phát triển ra sao?</h3>
+                <p>Từ ý tưởng Internet liên hành tinh, NASA đưa DTN lên tàu thăm dò, trạm ISS và cuối cùng vào các dịch vụ liên lạc của mình.</p>
+                <span class="story-link">Đọc bài <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+    </li>
+    <li class="story theme-uses">
+        <a href="blog3.html">
+            <div class="story-img"><img src="../images/dtn-pace.webp" alt="" loading="lazy"></div>
+            <div class="story-copy">
+                <p class="eyebrow">03 / Ứng dụng</p>
+                <h3>NASA dùng DTN ở đâu?</h3>
+                <p>Từ dữ liệu vận hành của PACE đến thử nghiệm laser trên ISS và mạng chuyển tiếp quanh Mặt Trăng.</p>
+                <span class="story-link">Đọc bài <span aria-hidden="true">↗</span></span>
+            </div>
+        </a>
+    </li>
+</ol>
+        </section>
+    </main>
+    <footer class="site-footer wrap">
+        <a href="../index.html">← Quay lại trang chủ</a><span>MyMiniCloud · Mạng không gian</span>
+    </footer>
 </body>
 </html>

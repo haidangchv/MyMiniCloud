@@ -1,73 +1,92 @@
-upstream web_cluster {
-    # Mặc định Nginx sử dụng thuật toán cân bằng tải Round Robin
-    server web-frontend-server:80;
-    server web-frontend-server-2:80;
+resolver 127.0.0.11 valid=5s ipv6=off;
+resolver_timeout 3s;
+
+upstream minicloud_web {
+    zone minicloud_web 64k;
+    server web-frontend-server:80 resolve;
+    server web-frontend-server-2:80 resolve;
+}
+
+upstream minicloud_app {
+    zone minicloud_app 64k;
+    server application-backend-server:5000 resolve;
+}
+
+upstream minicloud_auth {
+    zone minicloud_auth 64k;
+    server authentication-identity-server:8080 resolve;
 }
 
 server {
     listen 80;
     server_name _;
-    charset utf-8;
+    absolute_redirect off;
 
-    # Sử dụng Docker DNS nội bộ để không bị lỗi khởi động khi service của TV2 chưa bật
-    resolver 127.0.0.11 valid=10s ipv6=off;
+    add_header X-MyMiniCloud-Gateway nginx always;
+    add_header X-Upstream-Addr $upstream_addr always;
 
-    # Endpoint kiểm tra sức khỏe của riêng API Gateway
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Port $server_port;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Prefix "";
+    proxy_set_header Forwarded "";
+
+    location = /_gateway/health {
+        default_type text/plain;
+        return 200 "gateway ok\n";
+    }
+
     location = /gateway-health {
         default_type text/plain;
-        return 200 "API Gateway is healthy\n";
+        return 200 "gateway ok\n";
     }
 
-    # Định tuyến các request /api/* sang Flask Backend (TV2)
     location /api/ {
-        set $backend_upstream "http://application-backend-server:5000";
-        rewrite ^/api/(.*)$ /$1 break;
-
-        proxy_pass $backend_upstream;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        proxy_connect_timeout 3s;
-        proxy_read_timeout 10s;
-        proxy_intercept_errors on;
-        error_page 502 503 504 = @backend_unavailable;
+        error_page 502 504 = @backend_unavailable;
+        proxy_pass http://minicloud_app/;
     }
 
-    # Hỗ trợ gọi trực tiếp /student và /students-db qua Gateway
-    location ~ ^/(student|students-db)$ {
-        set $backend_upstream "http://application-backend-server:5000";
-
-        proxy_pass $backend_upstream$request_uri;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        proxy_connect_timeout 3s;
-        proxy_read_timeout 10s;
-        proxy_intercept_errors on;
-        error_page 502 503 504 = @backend_unavailable;
+    location = /student/ {
+        error_page 502 504 = @backend_unavailable;
+        proxy_pass http://minicloud_app/student;
     }
 
-    # Phản hồi JSON rõ ràng khi Flask Backend (TV2) chưa được khởi chạy
+    location = /student {
+        error_page 502 504 = @backend_unavailable;
+        proxy_pass http://minicloud_app/student;
+    }
+
+    location = /students-db {
+        error_page 502 504 = @backend_unavailable;
+        proxy_pass http://minicloud_app/students-db;
+    }
+
     location @backend_unavailable {
         default_type application/json;
-        return 503 '{"status":"unavailable","gateway":"api-gateway-proxy-server","target":"application-backend-server:5000","message":"Backend service (TV2) chua khoi chay hoac dang khoi dong."}\n';
+        return 503 '{"error":"backend_unavailable"}';
     }
 
-    # Cân bằng tải Round Robin cho cụm 2 Web Server (TV1)
-    location / {
-        proxy_pass http://web_cluster;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    location = /auth {
+        return 308 /auth/;
+    }
 
-        # Header giúp quan sát địa chỉ upstream thực tế được chọn theo Round Robin
-        add_header X-Gateway-Proxy "api-gateway-proxy-server" always;
-        add_header X-Upstream-Addr $upstream_addr always;
+    # Relative redirect keeps the browser on the same Gateway origin.
+    location = /auth/ {
+        return 302 /auth/realms/myminicloud/account/;
+    }
+
+    # Administration is available only on the loopback-published Keycloak port.
+    location = /auth/admin { return 403; }
+    location /auth/admin/ { return 403; }
+
+    location /auth/ {
+        proxy_pass http://minicloud_auth;
+    }
+
+    location / {
+        proxy_pass http://minicloud_web;
     }
 }
-

@@ -24,6 +24,5 @@ INSERT INTO students (student_id, fullname, dob, major) VALUES
 ('SV004', 'Le Van C', '2002-12-10', 'Cyber Security'),
 ('SV005', 'Pham Minh D', '2003-03-25', 'Software Engineering');
 
--- 3. Cấp quyền truy cập từ các container khác trong mạng cloud-net
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
+-- MariaDB official image configures root access using MARIADB_ROOT_PASSWORD.
+-- Keep that password so Flask can connect with the Compose environment.

@@ -16,3 +16,5 @@ object-storage-server/data/
 relational-database-server/data/
 monitoring-prometheus-server/data/
 monitoring-grafana-dashboard-server/data/
+
+.local/

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270">
+  <rect width="480" height="270" fill="#102625"/>
+  <path d="M0 254a347 347 0 0 1 480 0v16H0z" fill="#234e47"/>
+  <path d="M0 254a347 347 0 0 1 480 0" fill="none" stroke="#519782" stroke-width="3"/>
+  <g fill="none" stroke="#9ceccf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m126 93 99-22m29 8 101 72" stroke-dasharray="5 9"/>
+    <path d="m208 69 17 2-13 9m125 68 18 3-7-15"/>
+    <rect x="81" y="83" width="23" height="29" rx="4"/>
+    <path d="M57 93h24m23 0h24m-71-8h15v16H57zm56 0h15v16h-15z"/>
+    <rect x="230" y="57" width="22" height="28" rx="4"/>
+    <path d="M218 62h12m22 18h12m-32-23-10-9m29 38 9 9"/>
+    <path d="M353 155a35 35 0 0 0 42 42zm20 32-11 26m-13 0h34m2-38 12-12"/>
+  </g>
+  <g fill="#c3f6e4" font-family="sans-serif" font-size="16" text-anchor="middle">
+    <text x="94" y="141">Vệ tinh</text>
+    <text x="242" y="119">Chuyển tiếp</text>
+    <text x="365" y="238">Trạm mặt đất</text>
+  </g>
+</svg>

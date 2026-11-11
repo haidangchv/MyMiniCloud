@@ -1,49 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Giao tiếp giữa container trong cloud-net | MyMiniCloud</title>
-    <link rel="stylesheet" href="/styles.css">
+    <meta name="theme-color" content="#080c16">
+    <meta name="description" content="Từ dữ liệu vận hành của PACE đến thử nghiệm laser trên ISS và mạng chuyển tiếp quanh Mặt Trăng.">
+    <title>NASA dùng DTN ở đâu? | MyMiniCloud</title>
+    <link rel="stylesheet" href="../blog/article.css">
+    <script src="../blog/article.js" defer></script>
 </head>
-<body>
-    <nav>
-        <a href="/">Trang chủ</a> |
-        <a href="/blog/">Danh sách bài viết</a>
-    </nav>
-    <article>
-        <h1>Giao tiếp giữa container trong cloud-net</h1>
-        <p>Tác giả: xbanghjhj</p>
-        <figure>
-            <img src="/images/network-flow.svg" alt="Giao tiếp giữa container trong cloud-net">
-            <figcaption>Hình minh họa nguyên lý: Giao tiếp giữa container trong cloud-net.</figcaption>
-        </figure>
-        <h2>Dùng tên service để kết nối</h2>
-<p>Các service cùng tham gia một mạng Compose có thể được
-phân giải bằng tên service. Ví dụ, Gateway cùng mạng có thể
-gọi Web qua địa chỉ <code>http://web-frontend-server:80</code>.</p>
-
-<h2>Cổng host và cổng container</h2>
-<ul>
-    <li>Trình duyệt trên Windows: truy cập localhost:8080.</li>
-    <li>Container cùng mạng: truy cập web-frontend-server:80.</li>
-</ul>
-<p>Trong một container, localhost thông thường trỏ về chính
-container đó, không trỏ đến một container khác.</p>
-
-<h2>Hạn chế phụ thuộc IP động</h2>
-<p>Địa chỉ IP có thể thay đổi khi container được tạo lại.
-Tên service giúp cấu hình giao tiếp ổn định hơn.
-Docker DNS phục vụ phân giải tên service; Bind9 là dịch vụ
-DNS riêng được xây dựng trong bài lab MyMiniCloud.</p>
-
-<p>Nguồn:
-<a href="https://docs.docker.com/compose/how-tos/networking/">
-Docker — Networking in Compose</a></p>
-    </article>
-    <footer>
-        <a href="/blog/">Quay lại danh sách bài viết</a> |
-        <a href="/">Quay lại trang chủ</a>
+<body class="article-page theme-uses">
+    <a class="skip" href="#noi-dung">Đến nội dung</a>
+    <header class="site-header wrap">
+        <a class="brand" href="../index.html"><span aria-hidden="true" class="brand-mark"></span> MyMiniCloud</a>
+        <nav aria-label="Điều hướng chính"><a class="nav-link" href="index.html"><span aria-hidden="true">←</span> Danh sách bài viết</a></nav>
+    </header>
+    <main id="noi-dung">
+        <article class="wrap">
+            <header class="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="status-dot"></span> 03 / 03 · Ứng dụng</p>
+                    <h1>NASA dùng DTN ở đâu?</h1>
+                    <p class="lead">Từ dữ liệu vận hành của PACE đến thử nghiệm laser trên ISS và mạng chuyển tiếp quanh Mặt Trăng.</p>
+                </div>
+                <figure class="visual" data-orbit>
+    <div class="visual-frame">
+        <img src="../images/dtn-pace.webp" alt="Đồ họa NASA mô tả vệ tinh PACE truyền dữ liệu vô tuyến xuống ăng-ten trên Trái Đất" fetchpriority="high">
+        <div class="orbital-layer" aria-hidden="true">
+            <span class="orbit orbit-a"><i></i></span>
+            <span class="orbit orbit-b"><i></i></span>
+            <span class="orbit orbit-c"></span>
+        </div>
+    </div>
+    <figcaption><a href="https://www.nasa.gov/technology/space-comms/nasas-near-space-network-enables-pace-climate-mission-to-phone-home/">Minh họa đường truyền của PACE · NASA/Kasey Dillahay <span aria-hidden="true">↗</span></a></figcaption>
+</figure>
+            </header>
+            <div class="article-layout">
+                <nav class="toc" aria-label="Trong bài viết">
+                    <p class="eyebrow">Trong bài viết</p>
+                    <ol>
+                        <li><a href="#pace">PACE theo dõi tình trạng vệ tinh</a></li>
+                        <li><a href="#laser">ISS thử nghiệm DTN qua laser</a></li>
+                        <li><a href="#lunanet">LunaNet và các nhiệm vụ tương lai</a></li>
+                    </ol>
+                </nav>
+                <div class="article-body">
+                    <section id="pace">
+                        <h2>PACE theo dõi tình trạng vệ tinh</h2>
+                        <p>PACE quan sát đại dương và khí quyển. Đội vận hành cũng cần thông tin về pin, quỹ đạo và tình trạng thiết bị. Vệ tinh dùng DTN để gửi dữ liệu vận hành này, còn Near Space Network cung cấp các trạm mặt đất phục vụ liên lạc.</p>
+<p>Khi có cửa sổ liên lạc, hệ thống tự bắt đầu chuyển các bundle đang chờ. Nếu đường truyền bị gián đoạn ngoài kế hoạch, việc gửi có thể tiếp tục khi liên kết khả dụng trở lại.</p>
+<a href="https://www.nasa.gov/technology/space-comms/nasas-near-space-network-enables-pace-climate-mission-to-phone-home/">NASA · Cách PACE gửi dữ liệu về Trái Đất</a>
+                    </section>
+                    <section id="laser">
+                        <h2>ISS thử nghiệm DTN qua laser</h2>
+                        <p>Thiết bị ILLUMA-T trên ISS trao đổi dữ liệu bằng laser với vệ tinh chuyển tiếp LCRD. NASA dùng tuyến này để thử <strong>High-Rate DTN</strong>, một cách triển khai DTN có khả năng xử lý lượng dữ liệu lớn trên các liên kết tốc độ cao.</p>
+<p>Liên kết từ ILLUMA-T đến LCRD đạt tới <strong>1,2 Gbit/s</strong> trong thử nghiệm. Con số này là tốc độ của đường truyền quang. DTN quản lý dữ liệu chờ và chuyển tiếp khi có kết nối.</p>
+<a href="https://www.nasa.gov/goddard/esc/lcrd/">NASA · Kết quả thử nghiệm LCRD và ILLUMA-T</a>
+                    </section>
+                    <section id="lunanet">
+                        <h2>LunaNet và các nhiệm vụ tương lai</h2>
+                        <p><strong>LunaNet</strong> là bộ đặc tả để các hệ thống trên và quanh Mặt Trăng có thể phối hợp. Một kịch bản là thiết bị trên bề mặt gửi dữ liệu lên vệ tinh chuyển tiếp. Vệ tinh có thể giữ bundle tới khi có đường truyền về Trái Đất.</p>
+<p>NASA đang mở rộng năng lực chuyển tiếp cho Mặt Trăng và lên kế hoạch cho một mạng chuyển tiếp ở Sao Hỏa. Đây là các bước phát triển tiếp theo, bên cạnh dịch vụ DTN đã vận hành trên Near Space Network và Deep Space Network.</p>
+<a href="https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/">NASA · LunaNet và lộ trình mạng không gian</a>
+                    </section>
+                    <section class="sources">
+                        <h2>Tài liệu tham khảo</h2>
+                        <ul>
+                            <li><a href="https://www.nasa.gov/communicating-with-missions/delay-disruption-tolerant-networking/">NASA · Dịch vụ DTN</a></li>
+                            <li><a href="https://www.nasa.gov/reference/delay-disruption-tolerant-networking-overview/">NASA · Cơ chế và lợi ích của DTN</a></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer class="site-footer wrap">
+        <a href="index.html">← Quay lại danh sách bài viết</a><a href="../index.html">Trang chủ <span aria-hidden="true">→</span></a>
     </footer>
 </body>
 </html>

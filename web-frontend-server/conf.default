@@ -7,23 +7,26 @@ server {
     charset utf-8;
     absolute_redirect off;
 
-    # Header giúp nhận diện container Web nào đang xử lý request (kiểm chứng Load Balancing Round Robin)
     add_header X-Served-By $hostname always;
 
-    location / {
-        try_files $uri $uri/ =404;
+    # This constant gauge only reports that this Web endpoint answered.
+    location = /metrics {
+        default_type "text/plain; version=0.0.4";
+        return 200 "# HELP web_up Web metrics endpoint answered successfully\n# TYPE web_up gauge\nweb_up 1\n";
     }
 
-    # Endpoint /metrics cho Prometheus (Muc 7 mo rong - TV4): target job "web"
-    location = /metrics {
+    location = /_web/node {
         default_type text/plain;
-        return 200 "# HELP web_up Web frontend is up\n# TYPE web_up gauge\nweb_up 1\n";
+        return 200 "$hostname\n";
     }
 
     location = /node {
         default_type text/plain;
-        add_header X-Served-By $hostname always;
         return 200 "Web Server Node: $hostname\n";
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
     }
 
     location = /blog {
@@ -34,5 +37,18 @@ server {
         alias /usr/share/nginx/html/blog/;
         index index.html;
         autoindex off;
+    }
+}
+
+server {
+    listen 8082;
+    server_name _;
+
+    location = /stub_status {
+        stub_status;
+    }
+
+    location / {
+        return 404;
     }
 }
