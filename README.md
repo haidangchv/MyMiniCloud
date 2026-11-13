@@ -158,4 +158,29 @@ curl.exe http://127.0.0.1:8082/node
 
 Trong buổi kiểm thử có thể tạm dừng Flask, khởi động lại Gateway và kiểm tra trang chủ trả HTTP 200, các đường `/api/hello`, `/student`, `/student/`, `/students-db` trả HTTP 503 với JSON `backend_unavailable`. Bật lại Flask và kiểm tra các tuyến API trở về HTTP 200.
 
-Đề bài còn yêu cầu publish ít nhất một image tùy chỉnh lên Docker Hub và deploy toàn bộ cụm lên EC2 Ubuntu. Hai bước đó cần URL và bằng chứng thực thi riêng trong phụ lục.
+## Image Web trên Docker Hub
+
+Image Web đã được publish Public từ release 52c7e4bbefc11b97368e0bf50d85bfac4735e2eb vào ngày 13/11/2026, platform `linux/amd64`. Mã nguồn Web trong release này khớp phần Web đã tích hợp trên GitHub nhóm.
+
+- [Repository Docker Hub](https://hub.docker.com/r/xbanghjhj/myminicloud-web)
+- [Danh sách tag](https://hub.docker.com/r/xbanghjhj/myminicloud-web/tags)
+- Tag `52c7e4bbefc11b97368e0bf50d85bfac4735e2eb`
+- Image `xbanghjhj/myminicloud-web:52c7e4bbefc11b97368e0bf50d85bfac4735e2eb`
+- Digest `sha256:f90dc16a2d17b1b341bd92fb23c1dc325cef63e7a9c9a563a6a284482b76b2b7`
+
+### Pull image cho hai Web node
+
+Chạy trên máy có Docker hoặc EC2 Ubuntu x86_64.
+
+```bash
+WEB_IMAGE='xbanghjhj/myminicloud-web@sha256:f90dc16a2d17b1b341bd92fb23c1dc325cef63e7a9c9a563a6a284482b76b2b7'
+docker pull --platform linux/amd64 "$WEB_IMAGE"
+docker tag "$WEB_IMAGE" myminicloud-web:dev
+docker tag "$WEB_IMAGE" myminicloud-web:dev-replica
+```
+
+Compose dùng `myminicloud-web:dev` cho `web-frontend-server` tại `10.10.10.10`, host `8080:80`. Node `web-frontend-server-2` dùng `myminicloud-web:dev-replica` tại `10.10.10.11`, host `8082:80`. Hostname của mỗi node được đặt trong Compose để kiểm tra Round Robin qua Gateway cổng 80.
+
+Đã kiểm thử image khởi động bằng entrypoint mặc định, Nginx config hợp lệ, trang chủ có ba SVG, ba bài blog và endpoint `/node` phản hồi thành công. Digest trên được xác minh từ Docker Hub và pull lại thành công.
+
+EC2 cần triển khai toàn bộ cụm và lưu bằng chứng truy cập qua IP public trong phụ lục báo cáo.
