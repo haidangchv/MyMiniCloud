@@ -1,0 +1,5 @@
+NEXT                        LEFT LAST PASSED UNIT                          ACTIVATES
+Sat 2026-11-14 15:13:11 UTC   6h -         - myminicloud-certificate.timer myminicloud-certificate.service
+
+1 timers listed.
+Pass --all to see loaded but inactive timers, too.

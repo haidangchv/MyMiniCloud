@@ -1,0 +1,605 @@
+{
+  "node_cpu_seconds_total": [
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "idle"
+      },
+      "value": [
+        1794645353.066,
+        "799.3"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "iowait"
+      },
+      "value": [
+        1794645353.066,
+        "14.45"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "irq"
+      },
+      "value": [
+        1794645353.066,
+        "0"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "nice"
+      },
+      "value": [
+        1794645353.066,
+        "0"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "softirq"
+      },
+      "value": [
+        1794645353.066,
+        "1.13"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "steal"
+      },
+      "value": [
+        1794645353.066,
+        "0.04"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "system"
+      },
+      "value": [
+        1794645353.066,
+        "39.54"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "user"
+      },
+      "value": [
+        1794645353.066,
+        "255.08"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "idle"
+      },
+      "value": [
+        1794645353.066,
+        "804.6"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "iowait"
+      },
+      "value": [
+        1794645353.066,
+        "9.9"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "irq"
+      },
+      "value": [
+        1794645353.066,
+        "0"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "nice"
+      },
+      "value": [
+        1794645353.066,
+        "0"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "softirq"
+      },
+      "value": [
+        1794645353.066,
+        "0.42"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "steal"
+      },
+      "value": [
+        1794645353.066,
+        "0.04"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "system"
+      },
+      "value": [
+        1794645353.066,
+        "38.82"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_cpu_seconds_total",
+        "cpu": "1",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node",
+        "mode": "user"
+      },
+      "value": [
+        1794645353.066,
+        "256.14"
+      ]
+    }
+  ],
+  "node_memory_MemAvailable_bytes": [
+    {
+      "metric": {
+        "__name__": "node_memory_MemAvailable_bytes",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node"
+      },
+      "value": [
+        1794645353.072,
+        "6581006336"
+      ]
+    }
+  ],
+  "node_network_receive_bytes_total": [
+    {
+      "metric": {
+        "__name__": "node_network_receive_bytes_total",
+        "device": "eth0",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node"
+      },
+      "value": [
+        1794645353.072,
+        "37082"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "node_network_receive_bytes_total",
+        "device": "lo",
+        "instance": "monitoring-node-exporter-server:9100",
+        "job": "node"
+      },
+      "value": [
+        1794645353.072,
+        "0"
+      ]
+    }
+  ],
+  "container_cpu_usage_seconds_total{name!=\"\"}": [
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "271ed9fbab38d39d8843fffe4dabe246a6ca8137b0e06ff9e48cee568f034e1a",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:065914c03336590ebed517e7df38520f0efb44465fde4123c3f6b7328f5a9396",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_service": "monitoring-node-exporter-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_maintainer": "The Prometheus Authors <prometheus-developers@googlegroups.com>",
+        "cpu": "total",
+        "id": "/system.slice/docker-e1250c60bba855f5cf382eb3e3d665130e531eae72dd5cdcd9f6239517253228.scope",
+        "image": "prom/node-exporter:v1.8.2",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "monitoring-node-exporter-server"
+      },
+      "value": [
+        1794645353.073,
+        "0.794451"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "36320ba317f26ee0ecd88b1e72a2c08e4f2a185271b089daccacbb85836a4bd8",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:75b300c790eec33cd4386d80fc1a938e27604ba70f3eeda25e52874be2aae424",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_service": "relational-database-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_org_opencontainers_image_authors": "MariaDB Community",
+        "container_label_org_opencontainers_image_base_name": "docker.io/library/ubuntu:noble",
+        "container_label_org_opencontainers_image_description": "MariaDB Database for relational SQL",
+        "container_label_org_opencontainers_image_documentation": "https://hub.docker.com/_/mariadb/",
+        "container_label_org_opencontainers_image_licenses": "GPL-2.0",
+        "container_label_org_opencontainers_image_source": "https://github.com/MariaDB/mariadb-docker",
+        "container_label_org_opencontainers_image_title": "MariaDB Database",
+        "container_label_org_opencontainers_image_url": "https://github.com/MariaDB/mariadb-docker",
+        "container_label_org_opencontainers_image_vendor": "MariaDB Community",
+        "container_label_org_opencontainers_image_version": "11.8.9",
+        "cpu": "total",
+        "id": "/system.slice/docker-5f098ecd245d96d9237b34de2ddefe4bdcd225826e366de83b1656b9facd9009.scope",
+        "image": "mariadb:11",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "relational-database-server"
+      },
+      "value": [
+        1794645353.073,
+        "7.48781"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "6d62fb2b0760b3947e8f8ce883007a11e659fd5c9c852a13fb264c09fad68ae0",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:c34e7a644f573a3b6e7aa61ee67e498516914f326c2d8fd4985d5d25e818b86d",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "monitoring-cadvisor-server",
+        "container_label_com_docker_compose_service": "monitoring-cadvisor-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_org_opencontainers_image_created": "2026-01-16T14:50:34.594Z",
+        "container_label_org_opencontainers_image_description": "Analyzes resource usage and performance characteristics of running containers.",
+        "container_label_org_opencontainers_image_licenses": "NOASSERTION",
+        "container_label_org_opencontainers_image_revision": "7cbdee9260c4292d5d27d00416ce8a7dc1dc12a0",
+        "container_label_org_opencontainers_image_source": "https://github.com/google/cadvisor",
+        "container_label_org_opencontainers_image_title": "cadvisor",
+        "container_label_org_opencontainers_image_url": "https://github.com/google/cadvisor",
+        "container_label_org_opencontainers_image_version": "0.56.2",
+        "cpu": "total",
+        "id": "/system.slice/docker-dfecfd4e0b17803c5aeab9eea2a77241dc61362f277717d8faff16c043de336a.scope",
+        "image": "ghcr.io/google/cadvisor:0.56.2",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "monitoring-cadvisor-server"
+      },
+      "value": [
+        1794645353.073,
+        "8.651534"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "98cf51d9534227819760f8248820cc3f4193e6f3a1e1e71a00bbd9e5abb22914",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:35cb7b7c8cadd9402a329424232591cae231c4e0bf8758f831f0f2fe11256a8f",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_service": "web-frontend-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>",
+        "container_label_org_opencontainers_image_revision": "52c7e4bbefc11b97368e0bf50d85bfac4735e2eb",
+        "cpu": "total",
+        "id": "/system.slice/docker-9708f67688a4e1514f4374f4ecf49435c9a2f87200855e524ed3755e0239079b.scope",
+        "image": "myminicloud-web:dev",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "web-frontend-server"
+      },
+      "value": [
+        1794645353.073,
+        "2.873453"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "afbee54dcbbac1aaefb218effb74292b9659cf303f2ee81a928114aeb5696ad4",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:35cb7b7c8cadd9402a329424232591cae231c4e0bf8758f831f0f2fe11256a8f",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_service": "web-frontend-server2",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>",
+        "container_label_org_opencontainers_image_revision": "52c7e4bbefc11b97368e0bf50d85bfac4735e2eb",
+        "cpu": "total",
+        "id": "/system.slice/docker-345ae6ebbf90898742d781399f8ecd773e3fc62c0fff1f177a7e2519f568b0a2.scope",
+        "image": "myminicloud-web:dev-replica",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "web-frontend-server-2"
+      },
+      "value": [
+        1794645353.073,
+        "2.917946"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "4c551c1c75e10e00d9719a37d6911bcb2d373ac6a7ba0267e9682f1bda35276b",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:69961df6ffa67598048a31aa2822d61f3c93b91d7db24e44d9bb03f99d520da9",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "monitoring-prometheus-server",
+        "container_label_com_docker_compose_service": "monitoring-prometheus-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_maintainer": "The Prometheus Authors <prometheus-developers@googlegroups.com>",
+        "cpu": "total",
+        "id": "/system.slice/docker-006c1013207bb1f6dea1a5c0a901bee7f17dd0d34e188b4488b5ceb560fedea5.scope",
+        "image": "prom/prometheus:v2.54.1",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "monitoring-prometheus-server"
+      },
+      "value": [
+        1794645353.073,
+        "1.043181"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "bf6fe38fc40ed571bd73a7f2add695915fa31291d0d4f05346dae4b4c31a1a72",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_depends_on": "monitoring-prometheus-server:service_started:false",
+        "container_label_com_docker_compose_image": "sha256:37a5d8860aef847dfa09f5f8947f010f6479f98cf7820b5186f9c6314b44be60",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "monitoring-grafana-dashboard-server",
+        "container_label_com_docker_compose_service": "monitoring-grafana-dashboard-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_maintainer": "Grafana Labs <hello@grafana.com>",
+        "cpu": "total",
+        "id": "/system.slice/docker-2ecf8084cdabcc9a6a92546c146831f2035577ea41b23acd3b47635f6059ec99.scope",
+        "image": "grafana/grafana:11.2.0",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "monitoring-grafana-dashboard-server"
+      },
+      "value": [
+        1794645353.073,
+        "1.289657"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "dd49f8e64335804a6d0188555de2e5e40d8392dd9e823422983f471de5094618",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:b5d989e1e152c0535e34b2e3f442fc7d5b1072a5a7612ac8bd19bf3766866674",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "application-backend-server",
+        "container_label_com_docker_compose_service": "application-backend-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "cpu": "total",
+        "id": "/system.slice/docker-035ff180ca00599266a16c2db5f7ad245eda9582aa8b6e9f8f7c7249e5c81b80.scope",
+        "image": "myminicloud-app:dev",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "application-backend-server"
+      },
+      "value": [
+        1794645353.073,
+        "4.653661"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_architecture": "x86_64",
+        "container_label_build_date": "2025-11-12T16:39:14Z",
+        "container_label_com_docker_compose_config_hash": "1e22a445d761ff47c741eeb300034d0d4a10e7e6b1126c72a9d481732e539d64",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:4ee8200b0fd00de0e3743b48220f4feadbdb52deb29730ed804f9364bc2be23f",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "authentication-identity-server",
+        "container_label_com_docker_compose_service": "authentication-identity-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_cpe": "cpe:/a:redhat:enterprise_linux:9::appstream",
+        "container_label_description": "Keycloak Server Image",
+        "container_label_distribution_scope": "public",
+        "container_label_io_buildah_version": "1.41.4",
+        "container_label_io_k8s_description": "Keycloak Server Image",
+        "container_label_io_k8s_display_name": "Keycloak Server",
+        "container_label_io_openshift_tags": "keycloak security identity",
+        "container_label_maintainer": "https://www.keycloak.org/",
+        "container_label_name": "keycloak",
+        "container_label_org_opencontainers_image_created": "2025-12-01T08:14:24.495Z",
+        "container_label_org_opencontainers_image_documentation": "https://www.keycloak.org/documentation",
+        "container_label_org_opencontainers_image_licenses": "Apache-2.0",
+        "container_label_org_opencontainers_image_revision": "aa3baec457ee0cdfdff6de1ce256319180a76ee6",
+        "container_label_org_opencontainers_image_source": "https://github.com/keycloak-rel/keycloak-rel",
+        "container_label_org_opencontainers_image_title": "keycloak-rel",
+        "container_label_org_opencontainers_image_url": "https://github.com/keycloak-rel/keycloak-rel",
+        "container_label_org_opencontainers_image_version": "26.4.7",
+        "container_label_summary": "Keycloak Server Image",
+        "container_label_url": "https://www.keycloak.org/",
+        "container_label_vcs_type": "git",
+        "container_label_vendor": "https://www.keycloak.org/",
+        "container_label_version": "26.4.7",
+        "cpu": "total",
+        "id": "/system.slice/docker-e82941b41df43b67daec29aa3aaaafb48a6796fe532a8a29301d0831fd0081ca.scope",
+        "image": "quay.io/keycloak/keycloak:26.4.7",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "authentication-identity-server"
+      },
+      "value": [
+        1794645353.073,
+        "47.533033"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "66951c1cd0dd1639c5962fb5717387f7292d929420c4c32b2dc93ccbfe88e95c",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:8d269bfd23767bd4b0b98a57cca12cff0a03c226a26a6b6a9808934e38793517",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_service": "object-storage-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_org_opencontainers_image_licenses": "AGPL-3.0-only",
+        "container_label_org_opencontainers_image_revision": "9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a",
+        "container_label_org_opencontainers_image_source": "https://github.com/minio/minio",
+        "container_label_org_opencontainers_image_version": "RELEASE.2025-10-15T17-29-55Z",
+        "cpu": "total",
+        "id": "/system.slice/docker-4c6c60125ce1ecef3bb4f5f801db8285f9094e64de37dad3f39ed532b1394130.scope",
+        "image": "myminicloud-minio:RELEASE.2025-10-15T17-29-55Z",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "object-storage-server"
+      },
+      "value": [
+        1794645353.073,
+        "1.941382"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "a000742ef53152bd48e4ddd1a9237d01f1100abbaa8f1fcc9340b7a7c4f1cbad",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_image": "sha256:553830c815950bf51425565d11b1c02d6476c1365427412eec379272c0f97274",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "api-gateway-proxy-server",
+        "container_label_com_docker_compose_service": "api-gateway-proxy-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>",
+        "cpu": "total",
+        "id": "/system.slice/docker-a9703baca7f6ebb85ede2934a68d3a6522e6de299c8b6e246bf111050a845e8d.scope",
+        "image": "myminicloud-gateway:dev",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "api-gateway-proxy-server"
+      },
+      "value": [
+        1794645353.073,
+        "1.026337"
+      ]
+    },
+    {
+      "metric": {
+        "__name__": "container_cpu_usage_seconds_total",
+        "container_label_com_docker_compose_config_hash": "cb1c7e6024415b8d24ac8d229faca59cdbf92e849c77ccec1fd7a01aad257b26",
+        "container_label_com_docker_compose_container_number": "1",
+        "container_label_com_docker_compose_depends_on": "authentication-identity-server:service_healthy:false,object-storage-server:service_healthy:false,api-gateway-proxy-server:service_healthy:false,application-backend-server:service_healthy:false,relational-database-server:service_healthy:false",
+        "container_label_com_docker_compose_image": "sha256:fdf72f2325d892e0261c1321f601566fd3db98515f3c34d415809c84703c54b4",
+        "container_label_com_docker_compose_oneoff": "False",
+        "container_label_com_docker_compose_project": "myminicloud",
+        "container_label_com_docker_compose_project_config_files": "/home/ubuntu/MyMiniCloud/docker-compose.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.ec2.yml,/home/ubuntu/MyMiniCloud/.local/full/compose.https.yml",
+        "container_label_com_docker_compose_project_working_dir": "/home/ubuntu/MyMiniCloud",
+        "container_label_com_docker_compose_replace": "internal-dns-server",
+        "container_label_com_docker_compose_service": "internal-dns-server",
+        "container_label_com_docker_compose_version": "5.7.1",
+        "container_label_org_opencontainers_image_authors": "BIND 9 Developers <bind9-dev@isc.org>",
+        "cpu": "total",
+        "id": "/system.slice/docker-53b7a17c9fe4981a47304dbeb831097387c0d6b269a5bd1e607f9979c74a951b.scope",
+        "image": "myminicloud-bind9:9.20",
+        "instance": "monitoring-cadvisor-server:8080",
+        "job": "cadvisor",
+        "name": "internal-dns-server"
+      },
+      "value": [
+        1794645353.073,
+        "1.548351"
+      ]
+    }
+  ]
+}

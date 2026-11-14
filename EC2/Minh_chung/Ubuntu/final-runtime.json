@@ -1,0 +1,114 @@
+{
+  "timestamp_utc": "2026-11-14T08:49:04.773462+00:00",
+  "count": 12,
+  "containers": [
+    {
+      "name": "application-backend-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.20"
+    },
+    {
+      "name": "internal-dns-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.53"
+    },
+    {
+      "name": "object-storage-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.30"
+    },
+    {
+      "name": "monitoring-grafana-dashboard-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "running",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.132"
+    },
+    {
+      "name": "authentication-identity-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.40"
+    },
+    {
+      "name": "monitoring-prometheus-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "running",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.131"
+    },
+    {
+      "name": "api-gateway-proxy-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.60"
+    },
+    {
+      "name": "monitoring-cadvisor-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.129"
+    },
+    {
+      "name": "monitoring-node-exporter-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "running",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.130"
+    },
+    {
+      "name": "web-frontend-server-2",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.11"
+    },
+    {
+      "name": "web-frontend-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.10"
+    },
+    {
+      "name": "relational-database-server",
+      "running": true,
+      "oom_killed": false,
+      "health": "healthy",
+      "restarts": 0,
+      "restart_policy": "unless-stopped",
+      "ip": "10.10.10.50"
+    }
+  ]
+}

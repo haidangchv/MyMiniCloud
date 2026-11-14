@@ -1,0 +1,306 @@
+[
+  {
+    "name": "internal-dns-server",
+    "image": "myminicloud-bind9:9.20",
+    "image_id": "sha256:6966507573cce25f0c4ef7ba0025beedd2718b78cd56d22a0808fc1967c69f42",
+    "ip": "10.10.10.53",
+    "aliases": [
+      "internal-dns-server",
+      "internal-dns-server",
+      "dns-server",
+      "ns"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "443/tcp": null,
+      "53/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "1053"
+        }
+      ],
+      "53/udp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "1053"
+        }
+      ],
+      "853/tcp": null,
+      "953/tcp": null
+    }
+  },
+  {
+    "name": "object-storage-server",
+    "image": "myminicloud-minio:RELEASE.2025-10-15T17-29-55Z",
+    "image_id": "sha256:11d68828e7e63e5973bb1cf0a7b211289a7fba025eb0d71f1b7abb465fe716fe",
+    "ip": "10.10.10.30",
+    "aliases": [
+      "object-storage-server",
+      "object-storage-server",
+      "minio"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "9000/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "9000"
+        }
+      ],
+      "9001/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "9001"
+        }
+      ]
+    }
+  },
+  {
+    "name": "monitoring-grafana-dashboard-server",
+    "image": "grafana/grafana:11.2.0",
+    "image_id": "sha256:408afb9726de5122b00a2576763a8a57a3c86d5b0eff5305bc994ceb3eb96c3f",
+    "ip": "10.10.10.132",
+    "aliases": [
+      "monitoring-grafana-dashboard-server",
+      "monitoring-grafana-dashboard-server"
+    ],
+    "health": "running",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "3000/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "3000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "authentication-identity-server",
+    "image": "quay.io/keycloak/keycloak:26.4.7",
+    "image_id": "sha256:9409c59bdfb65dbffa20b11e6f18b8abb9281d480c7ca402f51ed3d5977e6007",
+    "ip": "10.10.10.40",
+    "aliases": [
+      "authentication-identity-server",
+      "authentication-identity-server",
+      "keycloak"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "8080/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8081"
+        }
+      ],
+      "8443/tcp": null,
+      "9000/tcp": null
+    }
+  },
+  {
+    "name": "monitoring-prometheus-server",
+    "image": "prom/prometheus:v2.54.1",
+    "image_id": "sha256:f6639335d34a77d9d9db382b92eeb7fc00934be8eae81dbc03b31cfe90411a94",
+    "ip": "10.10.10.131",
+    "aliases": [
+      "monitoring-prometheus-server",
+      "monitoring-prometheus-server"
+    ],
+    "health": "running",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "9090/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "9090"
+        }
+      ]
+    }
+  },
+  {
+    "name": "api-gateway-proxy-server",
+    "image": "myminicloud-gateway:dev",
+    "image_id": "sha256:356ec3ff0959cc07f4312de2067649b47c5dcebe79b44a2900c3b4094ca7d027",
+    "ip": "10.10.10.60",
+    "aliases": [
+      "api-gateway-proxy-server",
+      "api-gateway-proxy-server",
+      "proxy"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "443/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "443"
+        }
+      ],
+      "80/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "80"
+        }
+      ]
+    }
+  },
+  {
+    "name": "application-backend-server",
+    "image": "myminicloud-app:dev",
+    "image_id": "sha256:b42a06a5ef72c17aeaca117d89c7a9d9e821aafe27a48cc206b153e2085145d8",
+    "ip": "10.10.10.20",
+    "aliases": [
+      "application-backend-server",
+      "application-backend-server",
+      "app-server",
+      "app-backend"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "5000/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "5000"
+        },
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8085"
+        }
+      ]
+    }
+  },
+  {
+    "name": "monitoring-cadvisor-server",
+    "image": "ghcr.io/google/cadvisor:0.56.2",
+    "image_id": "sha256:5534ae91cbf3428998d60428d107cfdd97272d80658534ac6e54d8ce3b0c4d72",
+    "ip": "10.10.10.129",
+    "aliases": [
+      "monitoring-cadvisor-server",
+      "monitoring-cadvisor-server"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "8080/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8083"
+        }
+      ]
+    }
+  },
+  {
+    "name": "monitoring-node-exporter-server",
+    "image": "prom/node-exporter:v1.8.2",
+    "image_id": "sha256:4032c6d5bfd752342c3e631c2f1de93ba6b86c41db6b167b9a35372c139e7706",
+    "ip": "10.10.10.130",
+    "aliases": [
+      "monitoring-node-exporter-server",
+      "monitoring-node-exporter-server"
+    ],
+    "health": "running",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "9100/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "9100"
+        }
+      ]
+    }
+  },
+  {
+    "name": "web-frontend-server-2",
+    "image": "myminicloud-web:dev-replica",
+    "image_id": "sha256:f90dc16a2d17b1b341bd92fb23c1dc325cef63e7a9c9a563a6a284482b76b2b7",
+    "ip": "10.10.10.11",
+    "aliases": [
+      "web-frontend-server-2",
+      "web-frontend-server2",
+      "web2",
+      "web-frontend-server2",
+      "web-frontend-server-2"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "80/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8082"
+        }
+      ]
+    }
+  },
+  {
+    "name": "web-frontend-server",
+    "image": "myminicloud-web:dev",
+    "image_id": "sha256:f90dc16a2d17b1b341bd92fb23c1dc325cef63e7a9c9a563a6a284482b76b2b7",
+    "ip": "10.10.10.10",
+    "aliases": [
+      "web-frontend-server",
+      "web-frontend-server",
+      "web",
+      "web-frontend-server1"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "80/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8080"
+        }
+      ]
+    }
+  },
+  {
+    "name": "relational-database-server",
+    "image": "mariadb:11",
+    "image_id": "sha256:d36f18d65a0459510b8b0f643b226a6d299e3206486e2b64ff20754a6d291707",
+    "ip": "10.10.10.50",
+    "aliases": [
+      "relational-database-server",
+      "relational-database-server",
+      "db"
+    ],
+    "health": "healthy",
+    "restart_policy": "unless-stopped",
+    "restart_count": 0,
+    "oom_killed": false,
+    "ports": {
+      "3306/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "3306"
+        }
+      ]
+    }
+  }
+]

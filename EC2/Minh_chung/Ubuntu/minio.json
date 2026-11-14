@@ -1,0 +1,36 @@
+{
+  "objects": [
+    {
+      "bucket": "demo",
+      "key": "index.html",
+      "bytes": 6194,
+      "sha256": "daae721312f57ac0160c64457d28b6f21e598d84de78d9f85c77985b22a0b4e0",
+      "upload": 200,
+      "download": 200,
+      "source_match": true
+    },
+    {
+      "bucket": "profile-pics",
+      "key": "avatar.jpg",
+      "bytes": 5443,
+      "sha256": "bd6df4deb7917c46aadde774f6f8e32066a6da064102db55f437e4deb68cd9fb",
+      "upload": 200,
+      "download": 200,
+      "source_match": true
+    },
+    {
+      "bucket": "documents",
+      "key": "report-tv3.pdf",
+      "bytes": 645,
+      "sha256": "ad137053041217876e6db69eb1822cf24b468470548a00d894c6f6fb0dd301af",
+      "upload": 200,
+      "download": 200,
+      "source_match": true
+    }
+  ],
+  "public_objects": [
+    "/demo/index.html",
+    "/profile-pics/avatar.jpg"
+  ],
+  "private_pdf_anonymous_status": 403
+}

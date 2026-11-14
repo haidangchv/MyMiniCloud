@@ -1,0 +1,2 @@
+minicloud.notes=2
+studentdb.students=5

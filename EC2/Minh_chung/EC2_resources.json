@@ -1,0 +1,22 @@
+{
+  "source": "Observed directly in authenticated AWS console; not an AWS API export",
+  "observed_date_asia_saigon": "2026-11-14",
+  "instance_id": "i-05b9dad298528dba5",
+  "region": "us-east-1",
+  "availability_zone": "us-east-1c",
+  "instance_type": "m7i-flex.large",
+  "vcpu": 2,
+  "memory_gib": 8,
+  "public_ip": "54.227.182.163",
+  "previous_public_ip": "44.222.205.238",
+  "private_ip": "172.31.20.189",
+  "volume_id": "vol-03fef0335ea195264",
+  "volume_type": "gp3",
+  "volume_size_gib": 30,
+  "volume_iops": 3000,
+  "volume_throughput_mib_s": 125,
+  "backup_snapshot_id": "snap-0b6695a891c147932",
+  "backup_snapshot_status": "Completed",
+  "backup_snapshot_volume_size_gib": 8,
+  "security_group_id": "sg-0fa9f7653e007d831"
+}

@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "timestamp_utc": "2026-11-14T08:36:01.047891+00:00",
+  "base_url": "https://54.227.182.163",
+  "tests": [
+    {
+      "test": "Runtime twelve containers and static IPs",
+      "status": "PASS",
+      "detail": {
+        "running": 12,
+        "static_ips_matched": 8,
+        "oom_killed": false
+      }
+    },
+    {
+      "test": "HTTPS blogs images and home links",
+      "status": "PASS",
+      "detail": {
+        "pages": 4,
+        "image_checks": 7,
+        "checksum_match": true,
+        "home_links": true
+      }
+    },
+    {
+      "test": "Flask routing HTTP and HTTPS",
+      "status": "PASS",
+      "detail": {
+        "routes": 12,
+        "students": 5
+      }
+    },
+    {
+      "test": "Round Robin ten consecutive requests",
+      "status": "PASS",
+      "detail": {
+        "requests": 10,
+        "alternating": true
+      }
+    },
+    {
+      "test": "Keycloak realm users tokens and protected Flask",
+      "status": "PASS",
+      "detail": {
+        "realm": "realm_sv001",
+        "client": "flask-app",
+        "users": 2,
+        "secure_calls": 6,
+        "negative_checks": 2
+      }
+    },
+    {
+      "test": "MinIO buckets upload download public avatar",
+      "status": "PASS",
+      "detail": {
+        "buckets": 3,
+        "uploads": 3,
+        "downloads": 3,
+        "checksum_match": true,
+        "public_checks": 2,
+        "private_pdf": 403
+      }
+    },
+    {
+      "test": "Prometheus targets and host container metrics",
+      "status": "PASS",
+      "detail": {
+        "targets_up": 4,
+        "metric_queries": 4,
+        "named_containers": 12,
+        "host_memory_over_7GiB": true
+      }
+    },
+    {
+      "test": "Grafana datasource and saved System Health dashboard",
+      "status": "PASS",
+      "detail": {
+        "title": "System Health of 52300183",
+        "panels": 9,
+        "datasource": "OK"
+      }
+    },
+    {
+      "test": "Bind9 both zones UDP and TCP records",
+      "status": "PASS",
+      "detail": {
+        "queries": 68,
+        "all_match": true
+      }
+    },
+    {
+      "test": "MariaDB persistent initialized data",
+      "status": "PASS",
+      "detail": {
+        "notes": 2,
+        "students": 5
+      }
+    }
+  ],
+  "passed": 10,
+  "failed": 0,
+  "credentials_or_tokens_included": false
+}

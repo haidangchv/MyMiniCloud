@@ -1,0 +1,13 @@
+CONTAINER ID   NAME                                  CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+0b08cd75aee7   application-backend-server            0.02%     30.23MiB / 128MiB     23.62%    7.84kB / 3.35kB   0B / 147kB        1
+53b7a17c9fe4   internal-dns-server                   0.00%     6.035MiB / 128MiB     4.71%     4.88kB / 462B     2.11MB / 8.19kB   8
+4c6c60125ce1   object-storage-server                 0.00%     82.04MiB / 512MiB     16.02%    122kB / 11MB      4.1kB / 1.55MB    9
+2ecf8084cdab   monitoring-grafana-dashboard-server   0.04%     88.78MiB / 384MiB     23.12%    3.84MB / 20MB     14.7MB / 389kB    12
+e82941b41df4   authentication-identity-server        0.31%     484.3MiB / 1GiB       47.29%    147kB / 8.9MB     9.67MB / 164MB    37
+006c1013207b   monitoring-prometheus-server          0.00%     71.51MiB / 256MiB     27.93%    14.7MB / 5.17MB   17.2MB / 1.88MB   8
+a9703baca7f6   api-gateway-proxy-server              0.00%     5.988MiB / 128MiB     4.68%     32.6MB / 30.8MB   0B / 4.1kB        3
+dfecfd4e0b17   monitoring-cadvisor-server            0.11%     88.06MiB / 320MiB     27.52%    265kB / 14.1MB    19MB / 0B         17
+e1250c60bba8   monitoring-node-exporter-server       0.00%     12.9MiB / 64MiB       20.16%    76.8kB / 1.42MB   4.91MB / 0B       5
+345ae6ebbf90   web-frontend-server-2                 0.00%     7.734MiB / 7.593GiB   0.10%     35.4kB / 494kB    8.44MB / 4.1kB    3
+9708f67688a4   web-frontend-server                   0.00%     3.438MiB / 7.593GiB   0.04%     81.7kB / 298kB    81.9kB / 4.1kB    3
+5f098ecd245d   relational-database-server            0.01%     116.1MiB / 256MiB     45.37%    14kB / 7.47kB     50MB / 32.8kB     10

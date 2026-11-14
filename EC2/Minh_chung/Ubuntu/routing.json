@@ -1,0 +1,50 @@
+[
+  {
+    "url": "http://54.227.182.163/api/hello",
+    "status": 200
+  },
+  {
+    "url": "http://54.227.182.163/api/student",
+    "status": 200
+  },
+  {
+    "url": "http://54.227.182.163/student",
+    "status": 200
+  },
+  {
+    "url": "http://54.227.182.163/student/",
+    "status": 200
+  },
+  {
+    "url": "http://54.227.182.163/students-db",
+    "status": 200
+  },
+  {
+    "url": "http://54.227.182.163/api/students-db",
+    "status": 200
+  },
+  {
+    "url": "https://54.227.182.163/api/hello",
+    "status": 200
+  },
+  {
+    "url": "https://54.227.182.163/api/student",
+    "status": 200
+  },
+  {
+    "url": "https://54.227.182.163/student",
+    "status": 200
+  },
+  {
+    "url": "https://54.227.182.163/student/",
+    "status": 200
+  },
+  {
+    "url": "https://54.227.182.163/students-db",
+    "status": 200
+  },
+  {
+    "url": "https://54.227.182.163/api/students-db",
+    "status": 200
+  }
+]

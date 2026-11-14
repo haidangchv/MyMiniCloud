@@ -184,3 +184,11 @@ Compose dùng `myminicloud-web:dev` cho `web-frontend-server` tại `10.10.10.10
 Đã kiểm thử image khởi động bằng entrypoint mặc định, Nginx config hợp lệ, trang chủ có ba SVG, ba bài blog và endpoint `/node` phản hồi thành công. Digest trên được xác minh từ Docker Hub và pull lại thành công.
 
 EC2 cần triển khai toàn bộ cụm và lưu bằng chứng truy cập qua IP public trong phụ lục báo cáo.
+
+## Triển khai EC2 Ubuntu đã nghiệm thu
+
+Phần triển khai ngày 14/11/2026, cấu hình HTTPS bổ sung, script PowerShell và
+minh chứng đủ 12 container được lưu tại [EC2/README.md](EC2/README.md).
+Bộ nghiệm thu gồm 10 nhóm PASS, ping 12/12, OIDC, MinIO, Prometheus và Grafana.
+Cổng Gateway 443 và cấu hình riêng EC2 được nạp bằng Compose override;
+bốn IP monitoring trong minh chứng là IP động thuộc `10.10.10.128/25`.
