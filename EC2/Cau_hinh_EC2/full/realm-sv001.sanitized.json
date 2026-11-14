@@ -1,0 +1,66 @@
+{
+  "realm": "realm_sv001",
+  "displayName": "MyMiniCloud EC2 - realm_sv001",
+  "enabled": true,
+  "sslRequired": "external",
+  "clients": [
+    {
+      "clientId": "flask-app",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "redirectUris": [
+        "https://54.227.182.163/*"
+      ],
+      "webOrigins": [
+        "https://54.227.182.163"
+      ],
+      "protocolMappers": [
+        {
+          "name": "flask-app-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.client.audience": "flask-app",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "sv01",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "sv01",
+      "lastName": "EC2 Demo",
+      "email": "sv01@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "<SET_PRIVATE_VALUE>",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "sv02",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "sv02",
+      "lastName": "EC2 Demo",
+      "email": "sv02@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "<SET_PRIVATE_VALUE>",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

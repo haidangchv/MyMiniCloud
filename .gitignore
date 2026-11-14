@@ -18,3 +18,13 @@ monitoring-prometheus-server/data/
 monitoring-grafana-dashboard-server/data/
 
 .local/
+
+# Báo cáo máy cá nhân và tài liệu đối chiếu không đưa vào phần EC2 công khai
+EC2/Nguon_doi_chieu/README_nhom_main.md
+EC2/Nguon_doi_chieu/Yeu_cau_goc_Google_Docs.txt
+EC2/*.docx
+EC2/*.pdf
+EC2/*.zip
+EC2_HoanThien_20261114.zip
+EC2/Minh_chung/AWS_console_observed.json
+EC2/**/*-private.json

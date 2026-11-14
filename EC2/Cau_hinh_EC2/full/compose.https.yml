@@ -1,0 +1,28 @@
+services:
+  api-gateway-proxy-server:
+    ports: !override
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    volumes:
+      - ./.local/full/gateway-https.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./.local/full/acme-webroot:/var/www/certbot:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+  authentication-identity-server:
+    environment:
+      KC_HOSTNAME: https://54.227.182.163/auth
+      KC_HOSTNAME_ADMIN: https://54.227.182.163/auth
+  object-storage-server:
+    environment:
+      MINIO_BROWSER_REDIRECT_URL: https://54.227.182.163/minio/ui
+  monitoring-grafana-dashboard-server:
+    environment:
+      GF_SERVER_ROOT_URL: https://54.227.182.163/grafana/
+      GF_SERVER_SERVE_FROM_SUB_PATH: "true"
+  monitoring-prometheus-server:
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=3d
+      - --storage.tsdb.retention.size=1GB
+      - --web.external-url=https://54.227.182.163/prometheus/
+      - --web.route-prefix=/

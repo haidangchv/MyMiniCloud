@@ -1,0 +1,104 @@
+{
+  "timestamp_utc": "2026-11-14T08:38:55.859670+00:00",
+  "status": "PASS",
+  "backend_container_absent": true,
+  "gateway_started_independently": true,
+  "requests": [
+    {
+      "url": "http://127.0.0.1/",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/blog/blog1.html",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/blog/blog2.html",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/blog/blog3.html",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/api/hello",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/student",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/student/",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "http://127.0.0.1/students-db",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/blog/blog1.html",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/blog/blog2.html",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/blog/blog3.html",
+      "status": 200,
+      "expected": 200,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/api/hello",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/student",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/student/",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    },
+    {
+      "url": "https://54.227.182.163/students-db",
+      "status": 503,
+      "expected": 503,
+      "match": true
+    }
+  ]
+}

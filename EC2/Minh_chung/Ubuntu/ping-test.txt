@@ -1,0 +1,23 @@
+=== Ping test trong mang cloud-net - 2026-11-14 08:40:06 ===
+api-gateway-proxy-server                 OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.090/0.102/0.119 ms
+web-frontend-server                      OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.086/0.099/0.120 ms
+web-frontend-server-2                    OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.085/0.100/0.126 ms
+application-backend-server               OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.091/0.094/0.098 ms
+relational-database-server               OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.088/0.112/0.146 ms
+authentication-identity-server           OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.087/0.120/0.172 ms
+object-storage-server                    OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.090/0.106/0.125 ms
+internal-dns-server                      OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.088/0.124/0.194 ms
+monitoring-node-exporter-server          OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.082/0.097/0.119 ms
+monitoring-cadvisor-server               OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.088/0.103/0.118 ms
+monitoring-prometheus-server             OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.087/0.110/0.145 ms
+monitoring-grafana-dashboard-server      OK   3 packets transmitted, 3 packets received, 0% packet loss round-trip min/avg/max = 0.095/0.111/0.121 ms
+
+Ket qua: 12 OK, 0 FAIL, 0 SKIP
+
+--- Kiem tra HTTP tu host ---
+http://localhost/                             HTTP 200
+http://localhost/api/hello                    HTTP 200
+http://localhost:9090/-/healthy               HTTP 200
+http://localhost:9100/metrics                 HTTP 200
+http://localhost:8083/healthz                 HTTP 200
+http://localhost:3000/api/health              HTTP 200

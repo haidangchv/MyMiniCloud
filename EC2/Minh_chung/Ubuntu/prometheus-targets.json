@@ -1,0 +1,94 @@
+[
+  {
+    "discoveredLabels": {
+      "__address__": "monitoring-cadvisor-server:8080",
+      "__metrics_path__": "/metrics",
+      "__scheme__": "http",
+      "__scrape_interval__": "15s",
+      "__scrape_timeout__": "10s",
+      "job": "cadvisor"
+    },
+    "labels": {
+      "instance": "monitoring-cadvisor-server:8080",
+      "job": "cadvisor"
+    },
+    "scrapePool": "cadvisor",
+    "scrapeUrl": "http://monitoring-cadvisor-server:8080/metrics",
+    "globalUrl": "http://monitoring-cadvisor-server:8080/metrics",
+    "lastError": "",
+    "lastScrape": "2026-11-14T08:35:42.035392232Z",
+    "lastScrapeDuration": 0.281484823,
+    "health": "up",
+    "scrapeInterval": "15s",
+    "scrapeTimeout": "10s"
+  },
+  {
+    "discoveredLabels": {
+      "__address__": "monitoring-node-exporter-server:9100",
+      "__metrics_path__": "/metrics",
+      "__scheme__": "http",
+      "__scrape_interval__": "15s",
+      "__scrape_timeout__": "10s",
+      "job": "node"
+    },
+    "labels": {
+      "instance": "monitoring-node-exporter-server:9100",
+      "job": "node"
+    },
+    "scrapePool": "node",
+    "scrapeUrl": "http://monitoring-node-exporter-server:9100/metrics",
+    "globalUrl": "http://monitoring-node-exporter-server:9100/metrics",
+    "lastError": "",
+    "lastScrape": "2026-11-14T08:35:46.381406412Z",
+    "lastScrapeDuration": 0.014451545,
+    "health": "up",
+    "scrapeInterval": "15s",
+    "scrapeTimeout": "10s"
+  },
+  {
+    "discoveredLabels": {
+      "__address__": "localhost:9090",
+      "__metrics_path__": "/metrics",
+      "__scheme__": "http",
+      "__scrape_interval__": "15s",
+      "__scrape_timeout__": "10s",
+      "job": "prometheus"
+    },
+    "labels": {
+      "instance": "localhost:9090",
+      "job": "prometheus"
+    },
+    "scrapePool": "prometheus",
+    "scrapeUrl": "http://localhost:9090/metrics",
+    "globalUrl": "https://54.227.182.163/metrics",
+    "lastError": "",
+    "lastScrape": "2026-11-14T08:35:42.646375785Z",
+    "lastScrapeDuration": 0.003592416,
+    "health": "up",
+    "scrapeInterval": "15s",
+    "scrapeTimeout": "10s"
+  },
+  {
+    "discoveredLabels": {
+      "__address__": "web-frontend-server:80",
+      "__metrics_path__": "/metrics",
+      "__scheme__": "http",
+      "__scrape_interval__": "15s",
+      "__scrape_timeout__": "10s",
+      "job": "web"
+    },
+    "labels": {
+      "instance": "web-frontend-server:80",
+      "job": "web"
+    },
+    "scrapePool": "web",
+    "scrapeUrl": "http://web-frontend-server:80/metrics",
+    "globalUrl": "http://web-frontend-server:80/metrics",
+    "lastError": "",
+    "lastScrape": "2026-11-14T08:35:40.44548338Z",
+    "lastScrapeDuration": 0.000397543,
+    "health": "up",
+    "scrapeInterval": "15s",
+    "scrapeTimeout": "10s"
+  }
+]

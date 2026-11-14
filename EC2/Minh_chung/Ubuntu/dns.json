@@ -1,0 +1,410 @@
+[
+  {
+    "name": "web-frontend-server.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web-frontend-server.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web-frontend-server1.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web-frontend-server1.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web2.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "web2.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "web-frontend-server2.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "web-frontend-server2.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "app-server.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "app-server.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "app-backend.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "app-backend.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "db.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.50",
+    "expected": "10.10.10.50"
+  },
+  {
+    "name": "db.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.50",
+    "expected": "10.10.10.50"
+  },
+  {
+    "name": "minio.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.30",
+    "expected": "10.10.10.30"
+  },
+  {
+    "name": "minio.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.30",
+    "expected": "10.10.10.30"
+  },
+  {
+    "name": "keycloak.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.40",
+    "expected": "10.10.10.40"
+  },
+  {
+    "name": "keycloak.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.40",
+    "expected": "10.10.10.40"
+  },
+  {
+    "name": "proxy.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.60",
+    "expected": "10.10.10.60"
+  },
+  {
+    "name": "proxy.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.60",
+    "expected": "10.10.10.60"
+  },
+  {
+    "name": "dns-server.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "dns-server.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "ns.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "ns.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "prometheus.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.131",
+    "expected": "10.10.10.131"
+  },
+  {
+    "name": "prometheus.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.131",
+    "expected": "10.10.10.131"
+  },
+  {
+    "name": "grafana.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.132",
+    "expected": "10.10.10.132"
+  },
+  {
+    "name": "grafana.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.132",
+    "expected": "10.10.10.132"
+  },
+  {
+    "name": "node.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.130",
+    "expected": "10.10.10.130"
+  },
+  {
+    "name": "node.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.130",
+    "expected": "10.10.10.130"
+  },
+  {
+    "name": "cadvisor.cloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.129",
+    "expected": "10.10.10.129"
+  },
+  {
+    "name": "cadvisor.cloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.129",
+    "expected": "10.10.10.129"
+  },
+  {
+    "name": "web-frontend-server.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web-frontend-server.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web-frontend-server1.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web-frontend-server1.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.10",
+    "expected": "10.10.10.10"
+  },
+  {
+    "name": "web2.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "web2.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "web-frontend-server2.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "web-frontend-server2.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.11",
+    "expected": "10.10.10.11"
+  },
+  {
+    "name": "app-server.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "app-server.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "app-backend.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "app-backend.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.20",
+    "expected": "10.10.10.20"
+  },
+  {
+    "name": "db.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.50",
+    "expected": "10.10.10.50"
+  },
+  {
+    "name": "db.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.50",
+    "expected": "10.10.10.50"
+  },
+  {
+    "name": "minio.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.30",
+    "expected": "10.10.10.30"
+  },
+  {
+    "name": "minio.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.30",
+    "expected": "10.10.10.30"
+  },
+  {
+    "name": "keycloak.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.40",
+    "expected": "10.10.10.40"
+  },
+  {
+    "name": "keycloak.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.40",
+    "expected": "10.10.10.40"
+  },
+  {
+    "name": "proxy.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.60",
+    "expected": "10.10.10.60"
+  },
+  {
+    "name": "proxy.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.60",
+    "expected": "10.10.10.60"
+  },
+  {
+    "name": "dns-server.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "dns-server.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "ns.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "ns.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.53",
+    "expected": "10.10.10.53"
+  },
+  {
+    "name": "prometheus.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.131",
+    "expected": "10.10.10.131"
+  },
+  {
+    "name": "prometheus.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.131",
+    "expected": "10.10.10.131"
+  },
+  {
+    "name": "grafana.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.132",
+    "expected": "10.10.10.132"
+  },
+  {
+    "name": "grafana.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.132",
+    "expected": "10.10.10.132"
+  },
+  {
+    "name": "node.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.130",
+    "expected": "10.10.10.130"
+  },
+  {
+    "name": "node.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.130",
+    "expected": "10.10.10.130"
+  },
+  {
+    "name": "cadvisor.myminicloud.local",
+    "protocol": "udp",
+    "answer": "10.10.10.129",
+    "expected": "10.10.10.129"
+  },
+  {
+    "name": "cadvisor.myminicloud.local",
+    "protocol": "tcp",
+    "answer": "10.10.10.129",
+    "expected": "10.10.10.129"
+  }
+]

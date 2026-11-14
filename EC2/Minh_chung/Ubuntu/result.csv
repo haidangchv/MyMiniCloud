@@ -1,0 +1,11 @@
+test,status,detail
+Runtime twelve containers and static IPs,PASS,"{'running': 12, 'static_ips_matched': 8, 'oom_killed': False}"
+HTTPS blogs images and home links,PASS,"{'pages': 4, 'image_checks': 7, 'checksum_match': True, 'home_links': True}"
+Flask routing HTTP and HTTPS,PASS,"{'routes': 12, 'students': 5}"
+Round Robin ten consecutive requests,PASS,"{'requests': 10, 'alternating': True}"
+Keycloak realm users tokens and protected Flask,PASS,"{'realm': 'realm_sv001', 'client': 'flask-app', 'users': 2, 'secure_calls': 6, 'negative_checks': 2}"
+MinIO buckets upload download public avatar,PASS,"{'buckets': 3, 'uploads': 3, 'downloads': 3, 'checksum_match': True, 'public_checks': 2, 'private_pdf': 403}"
+Prometheus targets and host container metrics,PASS,"{'targets_up': 4, 'metric_queries': 4, 'named_containers': 12, 'host_memory_over_7GiB': True}"
+Grafana datasource and saved System Health dashboard,PASS,"{'title': 'System Health of 52300183', 'panels': 9, 'datasource': 'OK'}"
+Bind9 both zones UDP and TCP records,PASS,"{'queries': 68, 'all_match': True}"
+MariaDB persistent initialized data,PASS,"{'notes': 2, 'students': 5}"
