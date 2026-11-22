@@ -13,7 +13,7 @@
     <a class="skip" href="#noi-dung">Đến nội dung</a>
     <header class="site-header wrap">
         <a class="brand" href="index.html"><span aria-hidden="true" class="brand-mark"></span> MyMiniCloud – Home</a>
-        <nav aria-label="Điều hướng chính"><a href="#ba-bai">Ba bài viết</a><a class="nav-link" href="blog/index.html">Danh mục blog <span aria-hidden="true">↗</span></a></nav>
+        <nav aria-label="Điều hướng chính"><a href="#ba-bai">Ba bài viết</a><a class="nav-link" href="blog/index.html">Danh mục blog <span aria-hidden="true">↗</span></a><a class="nav-link" href="/api/ui">Backend &amp; Database <span aria-hidden="true">↗</span></a></nav>
     </header>
     <main id="noi-dung">
         <section class="hero wrap">
@@ -78,6 +78,39 @@
         </a>
     </li>
 </ol>
+        </section>
+        <section class="wrap" aria-label="Kiểm tra cân bằng tải và phản hồi">
+            <div style="background: rgba(15, 23, 42, 0.72); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 14px; padding: 18px 20px; margin-top: 24px;">
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px;">
+                    <div>
+                        <p class="eyebrow" style="margin:0 0 4px;">Load Balancing · Round Robin</p>
+                        <p style="margin:0;">Node đang phản hồi trang này: <code id="ssr-node" style="color:#38bdf8; font-weight:700;">__SERVER_HOSTNAME__</code></p>
+                    </div>
+                    <button type="button" id="btn-test-lb" class="button" style="cursor:pointer; margin:0;">Gửi thử request /node ↻</button>
+                </div>
+                <pre id="lb-log" style="margin:12px 0 0; padding:10px 12px; border-radius:8px; background:rgba(8,12,22,0.85); color:#cbd5e1; font-size:0.85rem; overflow-x:auto; display:none;"></pre>
+            </div>
+            <script>
+                (function () {
+                    const btn = document.getElementById('btn-test-lb');
+                    const log = document.getElementById('lb-log');
+                    let count = 0;
+                    btn.addEventListener('click', async () => {
+                        count += 1;
+                        log.style.display = 'block';
+                        try {
+                            const res = await fetch('/node', { cache: 'no-store' });
+                            const text = (await res.text()).trim();
+                            const servedBy = res.headers.get('X-Served-By') || '-';
+                            const upstream = res.headers.get('X-Upstream-Addr') || '-';
+                            const line = `#${count} | HTTP ${res.status} | ${text} | X-Served-By: ${servedBy} | X-Upstream-Addr: ${upstream}`;
+                            log.textContent = (log.textContent ? log.textContent + '\n' : '') + line;
+                        } catch (err) {
+                            log.textContent = (log.textContent ? log.textContent + '\n' : '') + `#${count} | Lỗi: ${err.message}`;
+                        }
+                    });
+                })();
+            </script>
         </section>
     </main>
     <footer class="site-footer wrap">

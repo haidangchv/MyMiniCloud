@@ -2,7 +2,7 @@ import os
 import json
 import time
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template, request
 from jose import jwt
 import pymysql
 
@@ -39,12 +39,12 @@ DB_PASS = os.getenv("DB_PASS", "root")
 DB_NAME = os.getenv("DB_NAME", "studentdb")
 DB_PORT = int(os.getenv("DB_PORT", 3306))
 
-def get_db_connection():
+def get_db_connection(db_name=DB_NAME):
     return pymysql.connect(
         host=DB_HOST,
         user=DB_USER,
         password=DB_PASS,
-        database=DB_NAME,
+        database=db_name,
         port=DB_PORT,
         charset="utf8mb4",
         cursorclass=pymysql.cursors.DictCursor,
@@ -57,21 +57,51 @@ def get_db_connection():
 
 @app.get("/")
 def index():
-    """Trang thông tin tổng quan các endpoint của Application Backend Server"""
+    """Trả về giao diện HTML khi mở từ trình duyệt, hoặc JSON thông tin API khi gọi từ curl/CLI"""
+    if "text/html" in request.headers.get("Accept", ""):
+        return render_template("portal.html")
     return jsonify({
         "service": "Application Backend Server (Flask)",
         "status": "Running",
         "author": "TV 2 - Bui Huy Bau (MSSV: 52300181)",
         "endpoints": {
+            "GET /ui": "Giao diện Web quản lý Backend & Database MariaDB",
             "GET /hello": "API kiểm tra cơ bản (trả về JSON)",
             "GET /secure": "API xác thực OIDC Bearer Token qua Keycloak",
             "GET /student": "Mục mở rộng 2: Lấy danh sách 5 sinh viên từ students.json",
             "GET /students-db": "Mục mở rộng 3: Lấy danh sách sinh viên trực tiếp từ MariaDB (SELECT)",
+            "GET /notes-db": "Lấy danh sách ghi chú từ CSDL cơ bản minicloud.notes",
             "POST /students-db": "Mục mở rộng 3 nâng cao: Thêm sinh viên mới vào MariaDB (INSERT)",
             "PUT /students-db/<student_id>": "Mục mở rộng 3 nâng cao: Cập nhật thông tin sinh viên (UPDATE)",
             "DELETE /students-db/<student_id>": "Mục mở rộng 3 nâng cao: Xóa sinh viên khỏi MariaDB (DELETE)"
         }
     })
+
+
+@app.get("/ui")
+@app.get("/db")
+@app.get("/backend")
+def portal_ui():
+    """Giao diện quản trị trực quan cho Backend API & Database MariaDB"""
+    return render_template("portal.html")
+
+
+@app.get("/notes-db")
+def notes_db_get():
+    try:
+        conn = get_db_connection(db_name="minicloud")
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT id, title, CAST(created_at AS CHAR) AS created_at FROM notes ORDER BY id ASC;")
+            results = cursor.fetchall()
+        conn.close()
+        return jsonify({
+            "status": "success",
+            "source": f"MariaDB ({DB_HOST}:{DB_PORT}/minicloud)",
+            "count": len(results),
+            "data": results
+        })
+    except Exception as e:
+        return jsonify({"status": "error", "message": f"Database error: {str(e)}"}), 500
 
 # 1. API Cơ bản
 @app.get("/hello")

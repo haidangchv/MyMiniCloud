@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MyMiniCloud – Backend &amp; Database Portal</title>
+    <style>
+        :root {
+            --bg: #080c16;
+            --surface: #0f172a;
+            --surface-2: #162038;
+            --border: rgba(148, 163, 184, 0.18);
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-2: #22c55e;
+            --danger: #ef4444;
+            --warn: #f59e0b;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(circle at top right, #132242 0%, var(--bg) 55%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 60px; }
+        header {
+            display: flex; flex-wrap: wrap; gap: 16px;
+            align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 18px; margin-bottom: 24px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent-2); box-shadow: 0 0 12px var(--accent-2);
+        }
+        h1 { font-size: 1.35rem; margin: 0; }
+        .sub { color: var(--muted); font-size: 0.88rem; margin: 2px 0 0; }
+        nav { display: flex; flex-wrap: wrap; gap: 10px; }
+        .nav-btn, button {
+            background: var(--surface-2); color: var(--text);
+            border: 1px solid var(--border); border-radius: 8px;
+            padding: 8px 14px; font-size: 0.88rem; font-weight: 500;
+            cursor: pointer; text-decoration: none; transition: 0.15s;
+        }
+        .nav-btn:hover, button:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-primary { background: #0284c7; border-color: #38bdf8; color: #fff; }
+        .btn-primary:hover { background: #0369a1; color: #fff; }
+        .btn-danger { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: #fca5a5; }
+        .btn-danger:hover { background: rgba(239, 68, 68, 0.3); color: #fff; }
+        .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+
+        .stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px; margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px;
+        }
+        .stat-label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        .stat-value { font-size: 1.3rem; font-weight: 700; margin-top: 6px; color: var(--accent); }
+        .stat-value.ok { color: var(--accent-2); }
+
+        .tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+        .tab {
+            padding: 10px 18px; border-radius: 10px;
+            background: var(--surface); border: 1px solid var(--border);
+            color: var(--muted); font-weight: 600; cursor: pointer;
+        }
+        .tab.active {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent); color: var(--accent);
+        }
+
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        .card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 14px; padding: 20px; margin-bottom: 20px;
+        }
+        .card-header {
+            display: flex; flex-wrap: wrap; justify-content: space-between;
+            align-items: center; gap: 12px; margin-bottom: 16px;
+        }
+        .card-header h2 { margin: 0; font-size: 1.1rem; }
+        .badge {
+            font-size: 0.78rem; padding: 3px 10px; border-radius: 999px;
+            background: rgba(56, 189, 248, 0.12); color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .form-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 10px; margin-bottom: 12px;
+        }
+        input {
+            width: 100%; padding: 9px 12px; border-radius: 8px;
+            background: var(--bg); border: 1px solid var(--border);
+            color: var(--text); font-size: 0.9rem;
+        }
+        input:focus { outline: none; border-color: var(--accent); }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); }
+        th { color: var(--muted); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; }
+        tr:hover td { background: rgba(255, 255, 255, 0.02); }
+        .actions { display: flex; gap: 6px; }
+        .toast {
+            padding: 10px 14px; border-radius: 8px; margin-bottom: 14px;
+            font-size: 0.9rem; display: none;
+        }
+        .toast.ok { display: block; background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.4); color: #86efac; }
+        .toast.err { display: block; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; }
+        code { background: var(--bg); padding: 2px 6px; border-radius: 5px; font-size: 0.85rem; color: var(--accent); }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <header>
+        <div class="brand">
+            <span class="dot"></span>
+            <div>
+                <h1>MyMiniCloud – Backend &amp; Database Portal</h1>
+                <p class="sub">TV2 Application Backend (Flask) &amp; Relational Database (MariaDB 11)</p>
+            </div>
+        </div>
+        <nav>
+            <a class="nav-btn" href="/">← Trang chủ Web</a>
+            <a class="nav-btn" href="/blog/index.html">Blog</a>
+            <button onclick="refreshAll()">↻ Tải lại dữ liệu</button>
+        </nav>
+    </header>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-label">Flask Backend (/hello)</div>
+            <div class="stat-value ok" id="stat-backend">Đang kiểm tra...</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Sinh viên JSON (/student)</div>
+            <div class="stat-value" id="stat-json">--</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">MariaDB studentdb (/students-db)</div>
+            <div class="stat-value" id="stat-db">--</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">MariaDB minicloud.notes</div>
+            <div class="stat-value" id="stat-notes">--</div>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" data-tab="db" onclick="switchTab('db')">🗄️ Database MariaDB (CRUD)</button>
+        <button class="tab" data-tab="backend" onclick="switchTab('backend')">⚙️ Backend API (JSON &amp; Endpoints)</button>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <!-- PANEL 1: DATABASE MARIADB -->
+    <section id="panel-db" class="panel active">
+        <div class="card">
+            <div class="card-header">
+                <h2>Thêm / Cập nhật sinh viên (Bảng <code>studentdb.students</code>)</h2>
+                <span class="badge">MariaDB 11 · CRUD Live</span>
+            </div>
+            <form id="student-form" onsubmit="saveStudent(event)">
+                <div class="form-grid">
+                    <input id="f-id" type="text" placeholder="Mã SV (VD: SV006)" required>
+                    <input id="f-name" type="text" placeholder="Họ và tên (VD: Trần Thị Lan)" required>
+                    <input id="f-dob" type="date" required>
+                    <input id="f-major" type="text" placeholder="Chuyên ngành (VD: Cloud Computing)" required>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <button type="submit" class="btn-primary" id="btn-submit">+ Thêm sinh viên</button>
+                    <button type="button" id="btn-cancel" style="display:none;" onclick="resetForm()">Hủy sửa</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Danh sách sinh viên từ MariaDB</h2>
+                <code>GET /students-db</code>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã SV</th>
+                            <th>Họ và tên</th>
+                            <th>Ngày sinh</th>
+                            <th>Chuyên ngành</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="db-students-body">
+                        <tr><td colspan="6">Đang tải dữ liệu từ MariaDB...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Bảng cơ bản <code>minicloud.notes</code></h2>
+                <code>GET /notes-db</code>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>ID</th><th>Nội dung (title)</th><th>Thời gian tạo</th></tr>
+                    </thead>
+                    <tbody id="db-notes-body">
+                        <tr><td colspan="3">Đang tải dữ liệu...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- PANEL 2: BACKEND API -->
+    <section id="panel-backend" class="panel">
+        <div class="card">
+            <div class="card-header">
+                <h2>Danh sách sinh viên từ file tĩnh <code>students.json</code></h2>
+                <code>GET /student</code>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>ID</th><th>Họ và tên</th><th>Chuyên ngành</th><th>GPA</th></tr>
+                    </thead>
+                    <tbody id="json-students-body">
+                        <tr><td colspan="4">Đang tải...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Tài liệu Endpoint của Application Backend Server</h2>
+                <span class="badge">Flask 3.0 · Port 5000 / 8085</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Method &amp; Path</th><th>Mô tả</th><th>Test nhanh</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>GET /hello</code></td><td>Kiểm tra trạng thái hoạt động Backend</td><td><a class="nav-btn btn-sm" id="link-hello" target="_blank">Mở JSON ↗</a></td></tr>
+                        <tr><td><code>GET /student</code></td><td>Mục mở rộng 2: Đọc 5 sinh viên từ <code>students.json</code></td><td><a class="nav-btn btn-sm" id="link-student" target="_blank">Mở JSON ↗</a></td></tr>
+                        <tr><td><code>GET /students-db</code></td><td>Mục mở rộng 3: Đọc sinh viên từ MariaDB</td><td><a class="nav-btn btn-sm" id="link-db" target="_blank">Mở JSON ↗</a></td></tr>
+                        <tr><td><code>POST /students-db</code></td><td>Thêm sinh viên mới vào MariaDB</td><td>Dùng form ở tab Database</td></tr>
+                        <tr><td><code>PUT /students-db/&lt;id&gt;</code></td><td>Cập nhật thông tin sinh viên</td><td>Dùng nút Sửa ở tab Database</td></tr>
+                        <tr><td><code>DELETE /students-db/&lt;id&gt;</code></td><td>Xóa sinh viên khỏi MariaDB</td><td>Dùng nút Xóa ở tab Database</td></tr>
+                        <tr><td><code>GET /secure</code></td><td>Xác thực JWT Bearer Token (Keycloak OIDC)</td><td>Cần header Authorization</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+const API_BASE = window.location.pathname.startsWith('/api') ? '/api' : '';
+let editingStudentId = null;
+
+document.getElementById('link-hello').href = `${API_BASE}/hello`;
+document.getElementById('link-student').href = `${API_BASE}/student`;
+document.getElementById('link-db').href = `${API_BASE}/students-db`;
+
+function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${name}`));
+}
+
+if (window.location.pathname.endsWith('/backend')) switchTab('backend');
+
+function showToast(msg, isError = false) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = `toast ${isError ? 'err' : 'ok'}`;
+    setTimeout(() => { el.className = 'toast'; }, 4000);
+}
+
+async function loadHello() {
+    const el = document.getElementById('stat-backend');
+    try {
+        const res = await fetch(`${API_BASE}/hello`);
+        const data = await res.json();
+        el.textContent = data.message || 'Online';
+    } catch {
+        el.textContent = 'Offline';
+        el.style.color = '#ef4444';
+    }
+}
+
+async function loadJsonStudents() {
+    const tbody = document.getElementById('json-students-body');
+    try {
+        const res = await fetch(`${API_BASE}/student`);
+        const json = await res.json();
+        const rows = json.data || [];
+        document.getElementById('stat-json').textContent = `${rows.length} bản ghi`;
+        tbody.innerHTML = rows.map(s => `
+            <tr>
+                <td><code>${s.id}</code></td>
+                <td>${s.name}</td>
+                <td>${s.major}</td>
+                <td><strong>${s.gpa}</strong></td>
+            </tr>
+        `).join('');
+    } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="4">Lỗi tải JSON: ${e.message}</td></tr>`;
+    }
+}
+
+async function loadDbStudents() {
+    const tbody = document.getElementById('db-students-body');
+    try {
+        const res = await fetch(`${API_BASE}/students-db`);
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.message || 'DB Error');
+        const rows = json.data || [];
+        document.getElementById('stat-db').textContent = `${rows.length} sinh viên`;
+        tbody.innerHTML = rows.map(s => `
+            <tr>
+                <td>${s.id}</td>
+                <td><code>${s.student_id}</code></td>
+                <td>${s.fullname}</td>
+                <td>${s.dob}</td>
+                <td>${s.major}</td>
+                <td class="actions">
+                    <button class="btn-sm" onclick='startEdit(${JSON.stringify(s)})'>Sửa</button>
+                    <button class="btn-sm btn-danger" onclick="deleteStudent('${s.student_id}')">Xóa</button>
+                </td>
+            </tr>
+        `).join('');
+    } catch (e) {
+        document.getElementById('stat-db').textContent = 'Lỗi kết nối';
+        tbody.innerHTML = `<tr><td colspan="6">Lỗi MariaDB: ${e.message}</td></tr>`;
+    }
+}
+
+async function loadDbNotes() {
+    const tbody = document.getElementById('db-notes-body');
+    try {
+        const res = await fetch(`${API_BASE}/notes-db`);
+        const json = await res.json();
+        const rows = json.data || [];
+        document.getElementById('stat-notes').textContent = `${rows.length} ghi chú`;
+        tbody.innerHTML = rows.map(n => `
+            <tr><td>${n.id}</td><td>${n.title}</td><td>${n.created_at}</td></tr>
+        `).join('');
+    } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="3">Lỗi tải notes: ${e.message}</td></tr>`;
+    }
+}
+
+function startEdit(s) {
+    editingStudentId = s.student_id;
+    const idInput = document.getElementById('f-id');
+    idInput.value = s.student_id;
+    idInput.disabled = true;
+    document.getElementById('f-name').value = s.fullname;
+    document.getElementById('f-dob').value = s.dob;
+    document.getElementById('f-major').value = s.major;
+    document.getElementById('btn-submit').textContent = '💾 Lưu cập nhật';
+    document.getElementById('btn-cancel').style.display = 'inline-block';
+}
+
+function resetForm() {
+    editingStudentId = null;
+    document.getElementById('student-form').reset();
+    document.getElementById('f-id').disabled = false;
+    document.getElementById('btn-submit').textContent = '+ Thêm sinh viên';
+    document.getElementById('btn-cancel').style.display = 'none';
+}
+
+async function saveStudent(e) {
+    e.preventDefault();
+    const payload = {
+        student_id: document.getElementById('f-id').value.trim(),
+        fullname: document.getElementById('f-name').value.trim(),
+        dob: document.getElementById('f-dob').value,
+        major: document.getElementById('f-major').value.trim(),
+    };
+    const isEdit = Boolean(editingStudentId);
+    const url = isEdit ? `${API_BASE}/students-db/${encodeURIComponent(editingStudentId)}` : `${API_BASE}/students-db`;
+    const method = isEdit ? 'PUT' : 'POST';
+
+    try {
+        const res = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Thao tác thất bại');
+        showToast(data.message || 'Thành công!');
+        resetForm();
+        loadDbStudents();
+    } catch (err) {
+        showToast(err.message, true);
+    }
+}
+
+async function deleteStudent(studentId) {
+    if (!confirm(`Xóa sinh viên ${studentId} khỏi MariaDB?`)) return;
+    try {
+        const res = await fetch(`${API_BASE}/students-db/${encodeURIComponent(studentId)}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Không thể xóa');
+        showToast(data.message || 'Đã xóa!');
+        loadDbStudents();
+    } catch (err) {
+        showToast(err.message, true);
+    }
+}
+
+function refreshAll() {
+    loadHello();
+    loadJsonStudents();
+    loadDbStudents();
+    loadDbNotes();
+}
+
+refreshAll();
+</script>
+</body>
+</html>

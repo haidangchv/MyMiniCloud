@@ -10,7 +10,9 @@
       "directAccessGrantsEnabled": true,
       "redirectUris": [
         "http://localhost:8080/*",
-        "http://localhost/*"
+        "http://localhost/*",
+        "http://127.0.0.1:8080/*",
+        "http://127.0.0.1/*"
       ],
       "webOrigins": [
         "*"
@@ -32,7 +34,66 @@
           "temporary": false
         }
       ]
+    },
+    {
+      "username": "sv002",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Báu",
+      "lastName": "Bùi Huy",
+      "email": "bau.bh@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "minicloud123",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "sv003",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Đăng",
+      "lastName": "Nguyễn Hải",
+      "email": "dang.nh@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "minicloud123",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "sv004",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Minh",
+      "lastName": "Trần Văn",
+      "email": "tv4@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "minicloud123",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "sv005",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "An",
+      "lastName": "Nguyễn Văn",
+      "email": "an.nv@myminicloud.local",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "minicloud123",
+          "temporary": false
+        }
+      ]
     }
   ]
 }
-

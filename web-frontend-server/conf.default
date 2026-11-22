@@ -9,6 +9,9 @@ server {
 
     add_header X-Served-By $hostname always;
 
+    sub_filter '__SERVER_HOSTNAME__' '$hostname';
+    sub_filter_once off;
+
     # This constant gauge only reports that this Web endpoint answered.
     location = /metrics {
         default_type "text/plain; version=0.0.4";

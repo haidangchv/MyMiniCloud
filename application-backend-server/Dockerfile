@@ -9,8 +9,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy toàn bộ mã nguồn ứng dụng và file dữ liệu
+# Copy toàn bộ mã nguồn ứng dụng, templates và file dữ liệu
 COPY app.py students.json ./
+COPY templates/ ./templates/
 
 # Expose cổng 5000 (khớp cấu hình định tuyến Nginx Gateway của TV1)
 EXPOSE 5000
